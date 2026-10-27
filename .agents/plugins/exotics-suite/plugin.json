@@ -4,7 +4,8 @@
   "description": "Custom agent suite and skills for Exotics Collections luxury automotive dealership, Bento Grid catalog, bespoke European vehicle imports, and continuous aesthetic & QA auditing.",
   "agents": [
     "luxury-design-auditor",
-    "iphone-luxury-auditor"
+    "iphone-luxury-auditor",
+    "luxury-project-estimator"
   ],
   "skills": [
     "luxury-aesthetic-auditor",

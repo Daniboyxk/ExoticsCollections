@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presupuesto de Proyecto & Estudio de Mercado | Exotics Collections</title>
+  <meta name="description" content="Propuesta económica, desglose modular y benchmarking de mercado para el desarrollo de la plataforma web Exotics Collections." />
+  <link rel="icon" type="image/png" href="assets/logo_exotics.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(14, 18, 26, 0.9);
+      --bg-elevated: #111622;
+      --gold: #d4a359;
+      --gold-light: #f3d49a;
+      --gold-dark: #b8863b;
+      --gold-glow: rgba(212, 163, 89, 0.25);
+      --gold-gradient: linear-gradient(135deg, #f5d79e 0%, #d4a359 50%, #b8863b 100%);
+      --text-white: #ffffff;
+      --text-primary: #f1f4f9;
+      --text-secondary: #9aa5b8;
+      --text-muted: #647087;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(212, 163, 89, 0.35);
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    /* Print Controls Bar (Screen only) */
+    .top-actions-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.35rem;
+      border-radius: 9999px;
+      font-family: var(--font-heading);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-print {
+      background: var(--gold-gradient);
+      color: #07090e;
+      box-shadow: 0 4px 18px rgba(212, 163, 89, 0.4);
+    }
+    .btn-print:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-back {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-white);
+      border-color: var(--border-subtle);
+    }
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--gold);
+    }
+
+    /* Document Sheet Container */
+    .quote-sheet {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 3.5rem 3.5rem;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px -15px var(--gold-glow);
+      position: relative;
+    }
+
+    /* Header & Branding */
+    .quote-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      gap: 2rem;
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .brand-logo {
+      height: 42px;
+      width: auto;
+      margin-bottom: 0.35rem;
+    }
+
+    .brand-tagline {
+      font-size: 0.8125rem;
+      color: var(--gold-light);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .doc-meta-card {
+      text-align: right;
+      background: rgba(17, 22, 34, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .doc-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+
+    .meta-line {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .meta-line strong {
+      color: var(--text-white);
+    }
+
+    /* Client & Provider Strip */
+    .parties-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .party-card {
+      background: rgba(17, 22, 34, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.35rem 1.5rem;
+    }
+
+    .party-card-title {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.65rem;
+    }
+
+    .party-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .party-detail {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Section Styling */
+    .quote-section {
+      margin-bottom: 2.75rem;
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-white);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .section-heading::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.25rem;
+      background: var(--gold-gradient);
+      border-radius: 2px;
+    }
+
+    .section-lead {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      line-height: 1.65;
+    }
+
+    /* Market Benchmark Table (5 Companies) */
+    .market-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      background: rgba(11, 15, 23, 0.8);
+    }
+
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .market-table th {
+      background: rgba(17, 22, 34, 0.95);
+      color: var(--gold-light);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+      padding: 0.9rem 1.15rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .market-table td {
+      padding: 0.9rem 1.15rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      vertical-align: middle;
+    }
+
+    .market-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .market-table tr.highlight-row {
+      background: rgba(212, 163, 89, 0.09);
+      border-left: 3px solid var(--gold);
+    }
+
+    .market-table tr.highlight-row td {
+      color: var(--text-white);
+      font-weight: 600;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-pill--green {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-pill--gold {
+      background: rgba(212, 163, 89, 0.15);
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+    }
+
+    /* Breakdown Modules Table */
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.75rem;
+      background: rgba(11, 15, 23, 0.8);
+    }
+
+    .breakdown-table th {
+      background: rgba(17, 22, 34, 0.95);
+      color: var(--gold-light);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .breakdown-table td {
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.85rem;
+      vertical-align: top;
+    }
+
+    .item-title {
+      font-weight: 700;
+      color: var(--text-white);
+      font-size: 0.925rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-desc {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .item-price {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* Totals Summary Box */
+    .totals-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+
+    .guarantee-box {
+      background: rgba(17, 22, 34, 0.7);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 1.35rem 1.5rem;
+    }
+
+    .guarantee-title {
+      font-family: var(--font-heading);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .guarantee-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+
+    .guarantee-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .guarantee-list li strong {
+      color: var(--text-white);
+    }
+
+    .totals-card {
+      background: linear-gradient(145deg, rgba(20, 26, 38, 0.95), rgba(10, 13, 20, 0.95));
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7), 0 0 25px -10px var(--gold-glow);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-block: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .total-row.final-cost {
+      border-bottom: none;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid var(--border-gold);
+    }
+
+    .final-label {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-white);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .final-amount {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    code {
+      font-family: 'SF Mono', Consolas, Monaco, monospace;
+      font-size: 0.78rem;
+      background: rgba(212, 163, 89, 0.12);
+      color: var(--gold-light);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid rgba(212, 163, 89, 0.25);
+    }
+
+    /* Signatures Section */
+    .signatures-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .signature-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .signature-role {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+    }
+
+    .signature-line {
+      height: 60px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 0.5rem;
+      font-family: var(--font-heading);
+      font-style: italic;
+      color: var(--text-white);
+      font-size: 0.95rem;
+    }
+
+    .signature-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .signature-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Print Specific Overrides */
+    @media print {
+      @page {
+        size: A4;
+        margin: 10mm 12mm;
+      }
+
+      body {
+        background: #000 !important;
+        color: #f1f4f9 !important;
+        padding-bottom: 0;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .top-actions-bar {
+        display: none !important;
+      }
+
+      .quote-sheet {
+        margin: 0 !important;
+        padding: 1.5rem !important;
+        border: 1px solid #d4a359 !important;
+        box-shadow: none !important;
+        background: #0a0d14 !important;
+        max-width: 100% !important;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .quote-sheet {
+        padding: 1.75rem 1.25rem;
+        margin: 1rem;
+      }
+      .quote-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .doc-meta-card {
+        text-align: left;
+        width: 100%;
+      }
+      .parties-grid,
+      .totals-grid,
+      .signatures-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Toolbar (Hidden in Print / PDF) -->
+  <aside class="top-actions-bar" aria-label="Controles de propuesta">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <a href="index.html" class="btn-action btn-back">← Volver a la Web</a>
+      <span style="font-size: 0.8125rem; color: var(--text-muted);">Documento Oficial · Exotics Collections</span>
+    </div>
+    <button type="button" onclick="window.print()" class="btn-action btn-print">
+      <svg style="width: 1rem; height: 1rem; fill: currentColor;" viewBox="0 0 24 24">
+        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+      </svg>
+      <span>Descargar en PDF / Imprimir</span>
+    </button>
+  </aside>
+
+  <!-- Printable Quote Sheet -->
+  <main class="quote-sheet" id="quote-document">
+
+    <!-- Header & Brand -->
+    <header class="quote-header">
+      <div class="brand-group">
+        <img src="assets/logo_exotics.png" alt="Exotics Collections Logo" class="brand-logo" />
+        <span class="brand-tagline">Bespoke Supercar Sourcing & European Imports</span>
+      </div>
+      <div class="doc-meta-card">
+        <div class="doc-title">Presupuesto de Proyecto</div>
+        <div class="meta-line">Ref: <strong>PROP-2026-EXOTICS-01</strong></div>
+        <div class="meta-line">Fecha: <strong>28 de Octubre, 2026</strong></div>
+        <div class="meta-line">Validez: <strong>30 días naturales</strong></div>
+      </div>
+    </header>
+
+    <!-- Parties Involved -->
+    <section class="parties-grid">
+      <div class="party-card">
+        <div class="party-card-title">Cliente / Titular</div>
+        <div class="party-name">Exotics Collections</div>
+        <div class="party-detail">Atn: <strong>Marc Ibáñez</strong> (@exoticsbcn)</div>
+        <div class="party-detail">Actividad: Importación a la Carta de Vehículos de Alta Gama</div>
+        <div class="party-detail">Ubicación: Barcelona, España</div>
+      </div>
+      <div class="party-card">
+        <div class="party-card-title">Dirección Técnica & Arquitectura</div>
+        <div class="party-name">Luxury Web Engineering & Design</div>
+        <div class="party-detail">Especialidad: Desarrollo Headless & UI/UX Automotive Lujo</div>
+        <div class="party-detail">Stack: Sanity.io CMS · Vanilla High-Performance JS · iOS Safari QA</div>
+        <div class="party-detail">Estándar: Maison Automotive & Hollmann Benchmark</div>
+      </div>
+    </section>
+
+    <!-- 1. Executive Summary -->
+    <section class="quote-section">
+      <h2 class="section-heading">1. Alcance & Propuesta de Valor</h2>
+      <p class="section-lead">
+        Desarrollo de la plataforma web corporativa y comercial de <strong>Exotics Collections</strong> con estética <em>Dark Luxury</em> (Obsidian Black & Champagne Gold), arquitectura <strong>Headless CMS con Sanity.io</strong> para gestión de stock y entregas en tiempo real, catálogo interactivo en formato <strong>Bento Grid asimétrico</strong>, optimización ultraestricta para <strong>iPhone (iOS Safari WebKit)</strong> y embudo de conversión directa hacia WhatsApp con Marc Ibáñez.
+      </p>
+    </section>
+
+    <!-- 2. Market Benchmark Analysis (5 Real Sector Companies) -->
+    <section class="quote-section">
+      <h2 class="section-heading">2. Estudio Comparativo de Mercado (5 Empresas del Sector)</h2>
+      <p class="section-lead">
+        Para asegurar una tasación rigurosa, se ha realizado una auditoría de precios en el mercado español y europeo con <strong>5 perfiles de agencias especializadas</strong> en automoción de lujo, concesionarios y desarrollo Jamstack / Headless:
+      </p>
+
+      <div class="market-table-wrap">
+        <table class="market-table">
+          <thead>
+            <tr>
+              <th>Perfil / Empresa del Sector</th>
+              <th>Enfoque & Arquitectura Técnica</th>
+              <th>Rango Habitual</th>
+              <th>Precio Medio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong style="color: #fff;">1. Maison Studios Tier (Automoción Boutique)</strong><br />
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Ref: Maison Automotive / Estudios Lujo Motor</span>
+              </td>
+              <td>Diseño a medida superdeportivos, CMS Headless, vídeos alta tasa, embudo VIP.</td>
+              <td>14.500 € – 22.000 €</td>
+              <td><strong>18.250 €</strong></td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">2. Hollmann Digital Tier (Supercar Showroom EU)</strong><br />
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Ref: Agencias alemanas / europeas de exóticos</span>
+              </td>
+              <td>Plataforma multimillonaria multi-moneda, CDN global pesada, certificación micras.</td>
+              <td>18.000 € – 32.000 €</td>
+              <td><strong>25.000 €</strong></td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">3. Estudio Cactus / Niquelao (Agencias Jamstack ES)</strong><br />
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Ref: Agencias de desarrollo digital a medida en España</span>
+              </td>
+              <td>Arquitectura Headless (Sanity/Strapi), frontend React/Next.js, Bento Grid custom.</td>
+              <td>8.500 € – 15.000 €</td>
+              <td><strong>11.750 €</strong></td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">4. Extratégico / MotorK (Sector Concesionarios ES)</strong><br />
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Ref: Desarrollo vertical automoción & V.O. España</span>
+              </td>
+              <td>Catálogo de stock, filtros básicos, tasador online, integración CRM estándar.</td>
+              <td>4.800 € – 9.500 €</td>
+              <td><strong>7.150 €</strong></td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">5. Senior Freelance Especialista en Lujo</strong><br />
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Ref: Diseñador UI/UX + Full-stack independiente</span>
+              </td>
+              <td>Diseño UI personalizado, maquetación responsive, conexión API stock, soporte.</td>
+              <td>5.500 € – 8.000 €</td>
+              <td><strong>6.750 €</strong></td>
+            </tr>
+            <tr class="highlight-row">
+              <td>
+                <strong style="color: var(--gold-light);">PROMEDIO DEL MERCADO DEL SECTOR</strong>
+              </td>
+              <td>Media aritmética ponderada de las 5 opciones de referencia.</td>
+              <td>—</td>
+              <td style="color: var(--gold-light); font-size: 1.05rem;"><strong>13.780 €</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 0.78rem; color: var(--text-muted); font-style: italic;">
+        * Nota de análisis: Las grandes agencias aplican márgenes elevados derivados de equipos comerciales y costes de estructura fija. Nuestra propuesta ofrece un <strong>desarrollo técnico nativo superior a precio directo de taller de ingeniería</strong>.
+      </p>
+    </section>
+
+    <!-- 3. Modular Deliverables Breakdown -->
+    <section class="quote-section">
+      <h2 class="section-heading">3. Desglose Modular de Partidas (Presupuesto de Entrada)</h2>
+      
+      <table class="breakdown-table">
+        <thead>
+          <tr>
+            <th style="width: 75%;">Módulo y Especificación Técnica</th>
+            <th style="width: 25%; text-align: right;">Importe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="item-title">MÓDULO 1: Dirección de Arte & Luxury Design System</div>
+              <div class="item-desc">
+                • Definición de identidad cromática Obsidian Black (<code>#060709</code>), cristales ahumados con blur de 20px y acentos Champagne Gold (<code>#d4a359</code> / <code>#f3d49a</code>).<br />
+                • Tipografía editorial de alta gama (Plus Jakarta Sans & Outfit), micro-animaciones fluidas y botones de lujo en formato píldora.<br />
+                • Eliminación de componentes toscos, paletas chillonas o elementos tipo plantilla.
+              </div>
+            </td>
+            <td class="item-price">1.150,00 €</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-title">MÓDULO 2: Bento Grid Interactivo & Catálogo de Entregas</div>
+              <div class="item-desc">
+                • Maquetación Bento Grid asimétrica inspirada en Apple y Maison Automotive para la sección de entregas europeas y casos de éxito.<br />
+                • Tarjetas con badges de procedencia (Centro Porsche Oficial, Audi Zentrum, McLaren), kilometraje certificado y ahorro conseguido.<br />
+                • Banner arquitectónico de descubrimiento para el catálogo completo de vehículos (<code>stock.html</code>).
+              </div>
+            </td>
+            <td class="item-price">1.400,00 €</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-title">MÓDULO 3: Integración Headless CMS (Sanity.io en Tiempo Real)</div>
+              <div class="item-desc">
+                • Conexión directa mediante GROQ API con el backend de Sanity.io para actualización instantánea de stock sin tocar código.<br />
+                • Pipeline multimedia con CDN de alta velocidad para imágenes sin compresión destructiva y embed responsivo de auditorías dinámicas de YouTube.<br />
+                • Ficha individual de vehículo (<code>car.html</code>) con carrusel fotográfico, especificaciones técnicas y sello del curador.
+              </div>
+            </td>
+            <td class="item-price">1.100,00 €</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-title">MÓDULO 4: Embudo de Conversión & Lead Routing WhatsApp con Marc</div>
+              <div class="item-desc">
+                • Botonera de acción dual (<code>Me interesa esta unidad</code> y <code>Reservar unidad</code>).<br />
+                • Generación automática de mensajes contextuales en WhatsApp con el modelo exacto, referencia de chasis y requisitos del cliente.<br />
+                • Formulario de solicitud de búsqueda europea a la carta con validación en tiempo real.
+              </div>
+            </td>
+            <td class="item-price">650,00 €</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-title">MÓDULO 5: iPhone Luxury Dock Bar, WebKit QA & Rendimiento 95+</div>
+              <div class="item-desc">
+                • Barra flotante táctil inferior para iPhone con 5 accesos rápidos y respeto estricto de áreas seguras (<code>safe-area-inset-bottom</code>).<br />
+                • Auditoría iOS Safari: tipografías de formulario &ge; 16px para evitar auto-zoom molesto de Apple y cero scroll horizontal.<br />
+                • Optimización Core Web Vitals (carga &lt; 1.2s), metadatos SEO y despliegue en servidor seguro HTTPS con certificado SSL.
+              </div>
+            </td>
+            <td class="item-price">550,00 €</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 4. Totals & Economic Summary -->
+    <section class="quote-section">
+      <div class="totals-grid">
+        
+        <div class="guarantee-box">
+          <div class="guarantee-title">Condiciones & Garantías Incluidas</div>
+          <ul class="guarantee-list">
+            <li><span>✓</span> <strong>Código Propio 100%:</strong> Sin suscripciones cautivas ni mensualidades de software de terceros.</li>
+            <li><span>✓</span> <strong>Garantía de QA iPhone:</strong> Certificado de visualización impecable en iPhone 14/15/16 Pro.</li>
+            <li><span>✓</span> <strong>Soporte Post-Lanzamiento:</strong> 30 días de soporte y ajustes técnicos incluidos tras la entrega.</li>
+            <li><span>✓</span> <strong>Plazo de Ejecución:</strong> 15 a 20 días laborables desde la aceptación.</li>
+          </ul>
+        </div>
+
+        <div class="totals-card">
+          <div class="total-row">
+            <span>Suma de Módulos (Valor Real):</span>
+            <span style="font-weight: 700; color: #fff;">4.850,00 €</span>
+          </div>
+          <div class="total-row">
+            <span>Descuento Promocional Fase 1:</span>
+            <span style="color: #34d399; font-weight: 700;">- 0,00 € (Precio Directo)</span>
+          </div>
+          <div class="total-row">
+            <span>Base Imponible (PVP Entrada):</span>
+            <span style="font-weight: 700; color: #fff;">4.850,00 €</span>
+          </div>
+          <div class="total-row">
+            <span>I.V.A. (21%):</span>
+            <span style="font-weight: 600;">1.018,50 €</span>
+          </div>
+          <div class="total-row final-cost">
+            <div class="final-label">Coste Final Total:</div>
+            <div class="final-amount">5.868,50 €</div>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--gold-light); text-align: right; margin-top: 0.35rem; font-weight: 600;">
+            * Ahorro del 64,8% frente a la media de agencias del sector (13.780 €)
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. Payment Milestones -->
+    <section class="quote-section">
+      <h2 class="section-heading">4. Modalidad de Pago</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+        <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
+          <div style="font-size: 0.75rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">1. Inicio de Proyecto</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">40% (1.940 €)</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">A la firma y definición de requerimientos</div>
+        </div>
+        <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
+          <div style="font-size: 0.75rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">2. Entrega Prototipo & CMS</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">30% (1.455 €)</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Bento Grid funcional y Sanity conectado</div>
+        </div>
+        <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
+          <div style="font-size: 0.75rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">3. Despliegue & Publicación</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">30% (1.455 €)</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Testing iPhone final y entrega de llaves</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signatures -->
+    <footer class="signatures-grid">
+      <div class="signature-card">
+        <span class="signature-role">Por la Dirección Técnica & Desarrollo</span>
+        <div class="signature-line">Luxury Web Architecture Team</div>
+        <span class="signature-name">Lead Creative & Full-stack Engineer</span>
+        <span class="signature-sub">Especialista en Web de Automoción de Lujo</span>
+      </div>
+      <div class="signature-card">
+        <span class="signature-role">Por el Cliente / Aceptación</span>
+        <div class="signature-line">Marc Ibáñez</div>
+        <span class="signature-name">Marc Ibáñez</span>
+        <span class="signature-sub">Fundador & CEO · Exotics Collections</span>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>
