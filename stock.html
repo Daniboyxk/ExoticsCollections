@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stock de Vehículos Seleccionados | Exotics Collections</title>
+  <meta name="description" content="«No buscamos cualquier coche. Buscamos la unidad perfecta». Vehículos seleccionados como si fueran para nuestro garaje personal en Barcelona." />
+  <meta name="theme-color" content="#060709" />
+  <link rel="icon" type="image/png" href="assets/logo_exotics.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link" aria-label="Exotics Collections">
+        <img src="assets/logo_exotics.png" alt="Exotics Collections Logo" class="logo-img" />
+      </a>
+
+      <nav aria-label="Navegación principal">
+        <ul class="nav-links">
+          <li><a href="index.html#inicio" class="nav-item">Inicio</a></li>
+          <li><a href="index.html#importacion" class="nav-item">Importación</a></li>
+          <li><a href="index.html#youtube" class="nav-item">YouTube</a></li>
+          <li><a href="stock.html" class="nav-item active">Stock</a></li>
+          <li><a href="index.html#sobre-nosotros" class="nav-item">Sobre Nosotros</a></li>
+          <li><a href="index.html#contacto" class="nav-item">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-label="Menú móvil">
+    <a href="index.html#inicio" class="mobile-nav-link">Inicio</a>
+    <a href="index.html#entregas" class="mobile-nav-link">Entregas en Europa</a>
+    <a href="index.html#importacion" class="mobile-nav-link">Importación a la Carta</a>
+    <a href="stock.html" class="mobile-nav-link" style="color: var(--gold-light);">Vehículos en Stock</a>
+    <a href="index.html#sobre-nosotros" class="mobile-nav-link">Sobre Nosotros</a>
+    <a href="index.html#youtube" class="mobile-nav-link">Canal YouTube @exoticsbcn</a>
+    <a href="index.html#contacto" class="mobile-nav-link">Contacto</a>
+    <a href="https://wa.me/34697464104" target="_blank" rel="noopener noreferrer" class="btn btn-wa" style="margin-top: 1.5rem; text-align: center; justify-content: center;">
+      <span>WhatsApp Directo con Marc</span>
+    </a>
+  </div>
+
+  <main style="padding-top: calc(var(--header-h) + 2rem); min-height: 85vh;">
+    <section class="section" style="padding-top: 1.5rem;">
+      <div class="container">
+        
+        <!-- Hero Title & Slogans -->
+        <div class="center-content text-center">
+          <div class="badge-gold">Garaje de Selección Propia</div>
+          <h1 class="heading-section" style="margin-top: 0.75rem; font-size: clamp(2rem, 3.2vw, 3rem);">
+            «No buscamos cualquier coche. <br />
+            <span class="highlight">Buscamos la unidad perfecta».</span>
+          </h1>
+          <p class="lead-section" style="max-width: 760px; margin-inline: auto;">
+            Vendemos unidades que nosotros mismos compraríamos, como si fuera nuestro garaje personal. No priorizamos el margen de beneficio, sino el estado mecánico, el kilometraje verificado y la fiabilidad de cada vehículo.
+          </p>
+        </div>
+
+        <!-- Mode Switcher & Quick Sourcing CTA -->
+        <div class="catalog-nav-header">
+          <div class="catalog-tab-pill" role="tablist" aria-label="Selector de catálogo">
+            <button type="button" class="catalog-tab-btn active" id="tab-stock" role="tab" aria-selected="true">
+              <span>Stock Disponible</span>
+              <span class="tab-count" id="count-stock">0</span>
+            </button>
+            <button type="button" class="catalog-tab-btn" id="tab-deliveries" role="tab" aria-selected="false">
+              <span>Últimas Entregas</span>
+              <span class="tab-count" id="count-deliveries">0</span>
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+            <span style="font-size: 0.8125rem; color: var(--text-muted);">¿Buscas una configuración concreta?</span>
+            <a href="index.html#importacion" class="find-next-car-btn" style="background: var(--gold-gradient); color: #000; border: none;">
+              <span>Solicitar Búsqueda Europea</span>
+              <svg style="width: 0.85rem; height: 0.85rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Filters Tray (Active only on Stock tab) -->
+        <div class="filter-tray-wrap" id="filter-tray-container">
+          <div class="filter-grid-layout">
+            
+            <!-- Search Text -->
+            <div class="filter-group" style="grid-column: span 1 / span 2;">
+              <label class="filter-label" for="stock-search-input">Buscar Marca / Modelo</label>
+              <div class="filter-input-wrap">
+                <input type="text" id="stock-search-input" class="form-input" style="width: 100%;" placeholder="Ej: Hyundai I30 N, Megane, Vitara, Polo..." />
+              </div>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="filter-group">
+              <label class="filter-label" for="stock-brand-select">Marca</label>
+              <select id="stock-brand-select" class="form-select" style="width: 100%;">
+                <option value="all">Todas las marcas</option>
+              </select>
+            </div>
+
+            <!-- Environmental Badge -->
+            <div class="filter-group">
+              <label class="filter-label" for="stock-badge-select">Etiqueta DGT</label>
+              <select id="stock-badge-select" class="form-select" style="width: 100%;">
+                <option value="all">Todas las etiquetas</option>
+                <option value="Etiqueta C">Etiqueta C</option>
+                <option value="ECO">Etiqueta ECO</option>
+                <option value="0 Emisiones">0 Emisiones</option>
+                <option value="Etiqueta B">Etiqueta B</option>
+              </select>
+            </div>
+
+            <!-- Fuel Filter -->
+            <div class="filter-group">
+              <label class="filter-label" for="stock-fuel-select">Combustible</label>
+              <select id="stock-fuel-select" class="form-select" style="width: 100%;">
+                <option value="all">Todos</option>
+                <option value="Gasolina">Gasolina</option>
+                <option value="Diesel">Diésel</option>
+                <option value="Hibrido">Híbrido</option>
+              </select>
+            </div>
+
+            <!-- Transmission -->
+            <div class="filter-group">
+              <label class="filter-label" for="stock-gear-select">Cambio</label>
+              <select id="stock-gear-select" class="form-select" style="width: 100%;">
+                <option value="all">Todos</option>
+                <option value="Manual">Manual</option>
+                <option value="Automatico">Automático / DCT</option>
+              </select>
+            </div>
+
+            <!-- Availability -->
+            <div class="filter-group">
+              <label class="filter-label" for="stock-avail-select">Estado</label>
+              <select id="stock-avail-select" class="form-select" style="width: 100%;">
+                <option value="all">Todos los estados</option>
+                <option value="disponible">Solo Disponibles</option>
+                <option value="reservado">Reservados</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="filter-group">
+              <label class="filter-label" for="stock-sort-select">Ordenar Por</label>
+              <select id="stock-sort-select" class="form-select" style="width: 100%;">
+                <option value="newest">Más recientes</option>
+                <option value="price-asc">Precio: menor a mayor</option>
+                <option value="price-desc">Precio: mayor a menor</option>
+                <option value="km-asc">Kilometraje: menor a mayor</option>
+                <option value="year-desc">Año: más moderno</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bento Grid Container -->
+        <div class="bento-catalog-grid" id="main-bento-grid">
+          <!-- Dynamically populated -->
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/34697464104" target="_blank" rel="noopener noreferrer" class="floating-wa" aria-label="Consulta directa por WhatsApp con Marc">
+    <span class="floating-wa-pulse"></span>
+    <svg style="width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.53 0 .22 5.31.22 11.84c0 2.09.55 4.13 1.59 5.92L0 24l6.43-1.69a11.8 11.8 0 0 0 5.63 1.43h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.39-8.42zM12 21.75c-1.8 0-3.53-.48-5.04-1.38l-.36-.21-3.82 1 1.02-3.72-.23-.38A9.86 9.86 0 0 1 2.12 11.84C2.12 6.39 6.55 1.95 12 1.95s9.88 4.44 9.88 9.89-4.44 9.91-9.88 9.91z"/>
+    </svg>
+    <span>Consulta con Marc</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container text-center">
+      <img src="assets/logo_exotics.png" alt="Exotics Collections" style="height: 36px; margin: 0 auto 1rem;" />
+      <p style="color: var(--gold-light); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem;">
+        «Exclusividad, diseño y fiabilidad»
+      </p>
+      <p style="color: var(--text-muted); font-size: 0.8125rem;">
+        © 2026 Exotics Collections · Barcelona, España · Trato Directo con Marc Ibáñez
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/sanity-api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      var cfg = window.EXOTICS_CONFIG || {};
+      var sanity = window.ExoticsSanity;
+      
+      var grid = document.getElementById('main-bento-grid');
+      var filterTray = document.getElementById('filter-tray-container');
+      var tabStock = document.getElementById('tab-stock');
+      var tabDeliveries = document.getElementById('tab-deliveries');
+      var countStockEl = document.getElementById('count-stock');
+      var countDeliveriesEl = document.getElementById('count-deliveries');
+
+      // Filters
+      var searchInput = document.getElementById('stock-search-input');
+      var brandSelect = document.getElementById('stock-brand-select');
+      var badgeSelect = document.getElementById('stock-badge-select');
+      var fuelSelect = document.getElementById('stock-fuel-select');
+      var gearSelect = document.getElementById('stock-gear-select');
+      var availSelect = document.getElementById('stock-avail-select');
+      var sortSelect = document.getElementById('stock-sort-select');
+
+      var currentTab = 'stock'; // 'stock' or 'deliveries'
+
+      var data = await sanity.fetchAllData();
+      var allCars = (data && data.cars) || [];
+      var allImports = (data && data.imports) || [];
+
+      countStockEl.textContent = allCars.length;
+      countDeliveriesEl.textContent = allImports.length;
+
+      // Populate Brand Dropdown
+      var brands = Array.from(new Set(allCars.map(function(c) { return c.brand; }))).filter(Boolean).sort();
+      brands.forEach(function(b) {
+        var opt = document.createElement('option');
+        opt.value = b;
+        opt.textContent = b;
+        brandSelect.appendChild(opt);
+      });
+
+      function parsePrice(str) {
+        var num = String(str || '').replace(/[^\d]/g, '');
+        return parseInt(num, 10) || 0;
+      }
+
+      function parseKm(str) {
+        var num = String(str || '').replace(/[^\d]/g, '');
+        return parseInt(num, 10) || 0;
+      }
+
+      function getDgtBadgeClass(badge) {
+        if (!badge) return 'badge-c';
+        var b = badge.toLowerCase();
+        if (b.indexOf('0') >= 0 || b.indexOf('cero') >= 0) return 'badge-zero';
+        if (b.indexOf('eco') >= 0) return 'badge-eco';
+        return 'badge-c';
+      }
+
+      function renderCurrentView() {
+        if (currentTab === 'stock') {
+          filterTray.style.display = 'block';
+          renderStockBento();
+        } else {
+          filterTray.style.display = 'none';
+          renderDeliveriesBento();
+        }
+      }
+
+      function renderStockBento() {
+        var term = searchInput.value.toLowerCase().trim();
+        var selectedBrand = brandSelect.value;
+        var selectedBadge = badgeSelect.value;
+        var selectedFuel = fuelSelect.value;
+        var selectedGear = gearSelect.value;
+        var selectedAvail = availSelect.value;
+        var selectedSort = sortSelect.value;
+
+        var filtered = allCars.filter(function(car) {
+          var matchSearch = !term || (car.name + ' ' + car.brandModel + ' ' + car.description).toLowerCase().indexOf(term) >= 0;
+          var matchBrand = (selectedBrand === 'all') || car.brand === selectedBrand;
+          var matchBadge = (selectedBadge === 'all') || car.dgtBadge === selectedBadge;
+          var matchFuel = (selectedFuel === 'all') || (car.fuel || '').toLowerCase().indexOf(selectedFuel.toLowerCase()) >= 0;
+          var matchGear = (selectedGear === 'all') || (car.transmission || '').toLowerCase().indexOf(selectedGear.toLowerCase()) >= 0;
+          var matchAvail = (selectedAvail === 'all') || car.availability === selectedAvail;
+
+          return matchSearch && matchBrand && matchBadge && matchFuel && matchGear && matchAvail;
+        });
+
+        // Sort
+        filtered.sort(function(a, b) {
+          if (selectedSort === 'price-asc') return parsePrice(a.price) - parsePrice(b.price);
+          if (selectedSort === 'price-desc') return parsePrice(b.price) - parsePrice(a.price);
+          if (selectedSort === 'km-asc') return parseKm(a.km) - parseKm(b.km);
+          if (selectedSort === 'year-desc') return (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0);
+          return 0;
+        });
+
+        if (!filtered.length) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 4.5rem 2rem; background: rgba(14, 18, 26, 0.85); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle);">
+              <div class="badge-gold" style="margin-bottom: 1rem;">Búsqueda sin coincidencias</div>
+              <h3 style="color: var(--text-white); font-size: 1.5rem; margin-bottom: 0.75rem;">¿No encuentras el modelo exacto en stock?</h3>
+              <p style="color: var(--text-secondary); max-width: 580px; margin: 0 auto 1.75rem;">
+                «No nos conformamos con cualquier coche». Dinos la configuración que buscas y Marc rastreará la red oficial europea para traértelo auditado in situ.
+              </p>
+              <a href="index.html#importacion" class="btn btn-gold" style="padding: 0.8rem 1.8rem;">Solicitar Búsqueda a la Carta</a>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = filtered.map(function(car, idx) {
+          var isAvail = car.availability === 'disponible';
+          var statusModifier = isAvail ? 'bento-card--available' : 'bento-card--reserved';
+          var pillModifier = isAvail ? 'bento-status-pill--available' : 'bento-status-pill--reserved';
+          var statusText = isAvail ? 'Disponible' : 'Reservado';
+          
+          var carUrl = 'car.html?id=' + encodeURIComponent(car.id);
+          var waInterestUrl = cfg.getCarWhatsAppUrl(car.name, car.price, window.location.origin + '/' + carUrl, 'interest');
+          var waReserveUrl = cfg.getCarWhatsAppUrl(car.name, car.price, window.location.origin + '/' + carUrl, 'reserve');
+
+          var spanClass = '';
+          if (idx === 0) spanClass = 'bento-card--hero';
+          else if (idx === 3) spanClass = 'bento-card--panoramic';
+
+          var dgtBadgeClass = getDgtBadgeClass(car.dgtBadge);
+
+          return `
+            <article class="bento-card ${spanClass} ${statusModifier}">
+              <a href="${carUrl}" class="bento-media" aria-label="Ver ficha de ${car.name}">
+                <img class="bento-img" src="${car.coverImage}" alt="${car.name}" loading="lazy" />
+                <div class="bento-media-overlay"></div>
+                
+                <div class="bento-top-badges">
+                  <div class="bento-status-pill ${pillModifier}">
+                    <span class="pulse-dot"></span>
+                    <span>${statusText}</span>
+                  </div>
+
+                  <div style="display: flex; gap: 0.4rem; align-items: center;">
+                    <span class="bento-dgt-badge ${dgtBadgeClass}">${car.dgtBadge || 'Etiqueta C'}</span>
+                    <span class="bento-dgt-badge" style="background: rgba(0,0,0,0.75); color: var(--gold-light);">${car.year}</span>
+                  </div>
+                </div>
+              </a>
+
+              <div class="bento-body">
+                <div class="bento-header">
+                  <span class="bento-eyebrow">${car.brand} · ${car.curatorBadge || 'Selección Oficial'}</span>
+                  <h2 class="bento-title">
+                    <a href="${carUrl}" style="color: inherit; text-decoration: none;">${car.name}</a>
+                  </h2>
+
+                  <!-- Micro specs tags -->
+                  <div class="bento-specs-row">
+                    <span class="bento-spec-tag">📍 ${car.km}</span>
+                    <span class="bento-spec-tag">⚙️ ${car.transmission}</span>
+                    <span class="bento-spec-tag">⛽ ${car.fuel}</span>
+                  </div>
+                </div>
+
+                <!-- Curator's Selection Note Snippet -->
+                <div class="bento-curator-snippet">
+                  <span class="bento-curator-label">Por qué hemos seleccionado esta unidad:</span>
+                  «${car.whySelected ? (car.whySelected.length > 140 ? car.whySelected.substring(0, 140) + '…' : car.whySelected) : 'Revisado y auditado bajo criterios estrictos de conservación y fiabilidad mecánica.'}»
+                </div>
+
+                <div class="bento-footer">
+                  <div class="bento-price-wrap">
+                    <span class="bento-price-label">Precio Todo Incluido</span>
+                    <span class="bento-price">${car.price}</span>
+                  </div>
+
+                  <div class="bento-actions-group">
+                    <a href="${waInterestUrl}" target="_blank" rel="noopener noreferrer" class="btn-interest" title="Consultar detalles con Marc">
+                      <svg style="width: 1rem; height: 1rem;" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.53 0 .22 5.31.22 11.84c0 2.09.55 4.13 1.59 5.92L0 24l6.43-1.69a11.8 11.8 0 0 0 5.63 1.43h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.39-8.42zM12 21.75c-1.8 0-3.53-.48-5.04-1.38l-.36-.21-3.82 1 1.02-3.72-.23-.38A9.86 9.86 0 0 1 2.12 11.84C2.12 6.39 6.55 1.95 12 1.95s9.88 4.44 9.88 9.89-4.44 9.91-9.88 9.91z"/>
+                      </svg>
+                      <span>Me interesa esta unidad</span>
+                    </a>
+
+                    <a href="${carUrl}" class="btn btn-glass" style="padding: 0.55rem 0.95rem; font-size: 0.8125rem;">
+                      <span>Ver Ficha</span>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      function renderDeliveriesBento() {
+        if (!allImports.length) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-muted);">
+              Cargando entregas recientes...
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = allImports.map(function(item, idx) {
+          var spanClass = (idx === 0 || idx === 3) ? 'bento-card--panoramic' : '';
+
+          return `
+            <article class="bento-card ${spanClass} bento-card--delivered">
+              <div class="bento-media" style="aspect-ratio: 16 / 10;">
+                <img class="bento-img" src="${item.image}" alt="${item.title}" loading="lazy" />
+                <div class="bento-media-overlay"></div>
+                
+                <div class="bento-top-badges">
+                  <div class="bento-status-pill bento-status-pill--delivered">
+                    <span class="pulse-dot"></span>
+                    <span>Entrega Realizada</span>
+                  </div>
+                  <span class="bento-dgt-badge" style="background: rgba(226, 232, 240,0.15); color: var(--gold-light); border-color: rgba(226, 232, 240,0.3);">
+                    Importación a la Carta
+                  </span>
+                </div>
+              </div>
+
+              <div class="bento-body">
+                <div class="bento-header">
+                  <span class="bento-eyebrow">Caso de Éxito · Entrega Llave en Mano</span>
+                  <h3 class="bento-title" style="font-size: 1.25rem;">${item.title}</h3>
+                </div>
+
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                  ${item.description}
+                </p>
+
+                <div class="bento-footer">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.775rem; color: var(--gold-light);">
+                    <span>✓ Centro Oficial Europeo</span>
+                    <span>·</span>
+                    <span>✓ Peritaje In Situ</span>
+                  </div>
+
+                  <a href="index.html#importacion" class="btn btn-gold" style="padding: 0.5rem 1rem; font-size: 0.775rem;">
+                    Quiero un Coche Similar
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      // Tab switcher events
+      tabStock.addEventListener('click', function() {
+        if (currentTab === 'stock') return;
+        currentTab = 'stock';
+        tabStock.classList.add('active');
+        tabStock.setAttribute('aria-selected', 'true');
+        tabDeliveries.classList.remove('active');
+        tabDeliveries.setAttribute('aria-selected', 'false');
+        renderCurrentView();
+      });
+
+      tabDeliveries.addEventListener('click', function() {
+        if (currentTab === 'deliveries') return;
+        currentTab = 'deliveries';
+        tabDeliveries.classList.add('active');
+        tabDeliveries.setAttribute('aria-selected', 'true');
+        tabStock.classList.remove('active');
+        tabStock.setAttribute('aria-selected', 'false');
+        renderCurrentView();
+      });
+
+      // Filter events
+      searchInput.addEventListener('input', renderStockBento);
+      brandSelect.addEventListener('change', renderStockBento);
+      badgeSelect.addEventListener('change', renderStockBento);
+      fuelSelect.addEventListener('change', renderStockBento);
+      gearSelect.addEventListener('change', renderStockBento);
+      availSelect.addEventListener('change', renderStockBento);
+      sortSelect.addEventListener('change', renderStockBento);
+
+      renderCurrentView();
+
+      // Mobile Menu Drawer Toggle
+      var menuToggle = document.getElementById('menu-toggle');
+      var mobileDrawer = document.getElementById('mobile-drawer');
+      if (menuToggle && mobileDrawer) {
+        menuToggle.addEventListener('click', function() {
+          mobileDrawer.classList.toggle('open');
+        });
+        mobileDrawer.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileDrawer.classList.remove('open');
+          });
+        });
+      }
+    });
+  </script>
+
+  <!-- iPhone Luxury Bottom Floating Dock Bar -->
+  <nav class="iphone-dock-bar" aria-label="Navegación móvil rápida">
+    <a href="index.html#inicio" class="iphone-dock-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>Inicio</span>
+    </a>
+    <a href="index.html#entregas" class="iphone-dock-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      <span>Entregas</span>
+    </a>
+    <a href="index.html#importacion" class="iphone-dock-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <span>Importar</span>
+    </a>
+    <a href="stock.html" class="iphone-dock-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="7" width="20" height="13" rx="2"/>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+      </svg>
+      <span>Stock</span>
+    </a>
+    <a href="https://wa.me/34697464104" target="_blank" rel="noopener noreferrer" class="iphone-dock-item iphone-dock-item--wa" aria-label="WhatsApp con Marc">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.53 0 .22 5.31.22 11.84c0 2.09.55 4.13 1.59 5.92L0 24l6.43-1.69a11.8 11.8 0 0 0 5.63 1.43h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.39-8.42zM12 21.75c-1.8 0-3.53-.48-5.04-1.38l-.36-.21-3.82 1 1.02-3.72-.23-.38A9.86 9.86 0 0 1 2.12 11.84C2.12 6.39 6.55 1.95 12 1.95s9.88 4.44 9.88 9.89-4.44 9.91-9.88 9.91z"/>
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+  </nav>
+</body>
+</html>

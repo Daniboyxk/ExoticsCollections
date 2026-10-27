@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ficha de Vehículo Seleccionado | Exotics Collections</title>
+  <meta name="description" content="«No buscamos cualquier coche. Buscamos la unidad perfecta». Ficha técnica, equipamiento, vídeo y motivos de selección en Exotics Collections." />
+  <meta name="theme-color" content="#060709" />
+  <link rel="icon" type="image/png" href="assets/logo_exotics.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css?v=2" />
+  <style>
+    .car-hero-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (min-width: 1024px) {
+      .car-hero-layout {
+        grid-template-columns: 1.25fr 1fr;
+        gap: 2.75rem;
+        align-items: start;
+      }
+    }
+    .car-hero-gallery,
+    .car-hero-sidebar {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .gallery-main-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      width: 100%;
+      height: 480px;
+      max-height: 52vh;
+      background: #05070a;
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(226, 232, 240, 0.18);
+    }
+    @media (max-width: 768px) {
+      .gallery-main-wrap {
+        height: 320px;
+      }
+    }
+    .gallery-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      filter: blur(32px) brightness(0.35);
+      transform: scale(1.12);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 1;
+      transition: background-image 0.3s ease;
+    }
+    .gallery-main-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      z-index: 2;
+      transition: opacity 0.25s ease;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .gallery-main-img {
+        max-height: 320px;
+      }
+    }
+    .gallery-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--border-light);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 5;
+    }
+    .gallery-nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
+    .gallery-nav-prev { left: 1rem; }
+    .gallery-nav-next { right: 1rem; }
+    
+    .thumbs-row {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-block: 1rem;
+      width: 100%;
+      min-width: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--bg-card);
+    }
+    .thumb-item {
+      flex: 0 0 96px;
+      height: 64px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.55;
+      background: #080a0f;
+      transition: var(--transition);
+    }
+    @media (max-width: 768px) {
+      .thumbs-row {
+        gap: 0.5rem;
+        padding-block: 0.5rem;
+      }
+      .thumb-item {
+        flex: 0 0 76px;
+        height: 52px;
+      }
+    }
+    .thumb-item.active {
+      border-color: var(--gold);
+      opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(226, 232, 240, 0.4);
+    }
+    .thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .spec-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .spec-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .spec-val {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .booking-card {
+      background: linear-gradient(145deg, var(--bg-card) 0%, rgba(15, 20, 28, 0.95) 100%);
+      border: 1px solid var(--border-gold);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-glow);
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+    }
+
+    .video-showcase-container {
+      margin-top: 3.5rem;
+      background: rgba(14, 18, 26, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      backdrop-filter: blur(16px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link" aria-label="Exotics Collections">
+        <img src="assets/logo_exotics.png" alt="Exotics Collections Logo" class="logo-img" />
+      </a>
+
+      <nav aria-label="Navegación">
+        <ul class="nav-links">
+          <li><a href="index.html#inicio" class="nav-item">Inicio</a></li>
+          <li><a href="index.html#importacion" class="nav-item">Importación</a></li>
+          <li><a href="stock.html" class="nav-item active">Volver al Stock</a></li>
+          <li><a href="index.html#contacto" class="nav-item">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="stock.html" class="find-next-car-btn">
+          <span>← Todo el Stock</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: calc(var(--header-h) + 2rem); min-height: 85vh; padding-bottom: 5rem;">
+    <div class="container">
+
+      <!-- Breadcrumbs -->
+      <div style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+        <a href="index.html" style="color: var(--text-secondary);">Inicio</a> / 
+        <a href="stock.html" style="color: var(--text-secondary);">Stock Seleccionado</a> / 
+        <span id="breadcrumb-car" style="color: var(--gold-light); font-weight: 600;">Cargando vehículo...</span>
+      </div>
+
+      <!-- 1. TOP HERO: Gallery (Left) + Purchase/Booking Card (Right) -->
+      <div class="car-hero-layout" id="car-layout">
+        
+        <!-- Gallery & Thumbnails Column -->
+        <div class="car-hero-gallery">
+          <div class="gallery-main-wrap" id="gallery-main-wrap" title="Haz clic para ampliar la foto a pantalla completa">
+            <div class="gallery-backdrop" id="gallery-backdrop"></div>
+            <img id="main-gallery-img" class="gallery-main-img" src="assets/hero_poster.jpg" alt="Foto principal del coche" />
+            <button class="gallery-nav-btn gallery-nav-prev" id="gallery-prev" aria-label="Foto anterior">&#10094;</button>
+            <button class="gallery-nav-btn gallery-nav-next" id="gallery-next" aria-label="Foto siguiente">&#10095;</button>
+            <div class="gallery-zoom-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+              <span>🔍 Pantalla Completa</span>
+            </div>
+          </div>
+
+          <!-- Thumbnail Reel -->
+          <div class="thumbs-row" id="thumbs-row">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Pricing & Dual Action Booking Card Column -->
+        <div class="car-hero-sidebar">
+          <div class="booking-card" id="sticky-booking-card">
+            
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+              <div class="bento-status-pill bento-status-pill--available" id="car-status-pill">
+                <span class="pulse-dot"></span>
+                <span id="car-avail-badge-text">Disponible</span>
+              </div>
+              <span class="bento-dgt-badge badge-c" id="car-dgt-pill">Etiqueta C</span>
+            </div>
+
+            <h1 id="car-name-title" class="heading-section" style="font-size: 1.85rem; margin-bottom: 0.5rem; line-height: 1.2;">
+              Coche
+            </h1>
+
+            <div id="car-price-display" style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--gold-light); margin-bottom: 0.25rem;">
+              0.000€
+            </div>
+            <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 1.75rem;">
+              Precio final con cambio de nombre, 12 meses de garantía y revisión completa previa a entrega.
+            </p>
+
+            <!-- DUAL ACTION BUTTONS (As requested by client) -->
+            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+              
+              <!-- 1. Me interesa esta unidad -->
+              <a id="car-wa-interest-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-interest" style="width: 100%; justify-content: center; padding: 0.95rem; font-size: 0.95rem;">
+                <svg style="width: 1.25rem; height: 1.25rem;" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.53 0 .22 5.31.22 11.84c0 2.09.55 4.13 1.59 5.92L0 24l6.43-1.69a11.8 11.8 0 0 0 5.63 1.43h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.39-8.42zM12 21.75c-1.8 0-3.53-.48-5.04-1.38l-.36-.21-3.82 1 1.02-3.72-.23-.38A9.86 9.86 0 0 1 2.12 11.84C2.12 6.39 6.55 1.95 12 1.95s9.88 4.44 9.88 9.89-4.44 9.91-9.88 9.91z"/>
+                </svg>
+                <span>Me interesa esta unidad</span>
+              </a>
+
+              <!-- 2. Reservar unidad -->
+              <a id="car-wa-reserve-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-reserve-lead" style="width: 100%; justify-content: center; padding: 0.95rem; font-size: 0.95rem;">
+                <svg style="width: 1.15rem; height: 1.15rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Reservar unidad</span>
+              </a>
+
+              <a href="index.html#importacion" class="btn btn-glass" style="width: 100%; justify-content: center; padding: 0.75rem; font-size: 0.8125rem; margin-top: 0.5rem;">
+                ¿Buscas una configuración diferente?
+              </a>
+            </div>
+
+            <!-- Trust Points Checklist -->
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem; color: var(--text-secondary);">
+              <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <span style="color: var(--gold); font-weight: bold;">✓</span>
+                <span>12 Meses de Garantía Europea certificada</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <span style="color: var(--gold); font-weight: bold;">✓</span>
+                <span>Kilometraje 100% verificado en historial</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <span style="color: var(--gold); font-weight: bold;">✓</span>
+                <span>Auditoría de micras de pintura y diagnosis OBD</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <span style="color: var(--gold); font-weight: bold;">✓</span>
+                <span>Entrega llave en mano en toda España</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 2. EXCLUSIVE SECTION: ¿Por qué hemos seleccionado esta unidad? -->
+      <div class="curator-note-card">
+        <div class="curator-note-badge">
+          <span>★ Criterio de Selección de Marc Ibáñez</span>
+        </div>
+        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold-light); margin-bottom: 0.75rem;">
+          ¿Por qué hemos seleccionado esta unidad?
+        </h3>
+        <p id="curator-note-text" class="curator-note-quote">
+          Cargando criterio de selección del chasis...
+        </p>
+
+        <div class="curator-signature-strip">
+          <img src="assets/hero_poster.jpg" alt="Marc Ibáñez" class="curator-avatar" id="curator-avatar-img" />
+          <div>
+            <div class="curator-name">Marc Ibáñez</div>
+            <div class="curator-role">Fundador & Curador de Vehículos · Exotics Collections</div>
+          </div>
+          <div style="margin-left: auto; text-align: right;">
+            <span style="display: inline-block; font-size: 0.75rem; color: var(--gold-light); font-weight: 700; background: rgba(226, 232, 240,0.12); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid rgba(226, 232, 240,0.3);">
+              ✓ Inspección Aprobada
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Dedicated Video Showcase Section -->
+      <div class="video-showcase-container" id="car-video-section">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <span id="car-video-tag" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--gold); letter-spacing: 0.08em;">Vídeo Detallado & Sonido</span>
+            <h3 id="car-video-title" class="heading-section" style="font-size: 1.4rem; margin-top: 0.2rem;">Auditoría y Prueba Dinámica</h3>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Canal Oficial @exoticsbcn</span>
+        </div>
+        <p id="car-video-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6; display: none;">
+          <!-- Populated dynamically -->
+        </p>
+
+        <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-md); overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1);">
+          <iframe id="car-video-iframe" style="width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/7T5Bi2N6lM8" title="Vídeo del vehículo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- 4. Technical Specifications Grid -->
+      <div style="margin-top: 3.5rem;">
+        <h3 class="heading-section" style="font-size: 1.5rem;">Ficha Técnica & Rendimiento</h3>
+        <div class="specs-grid" id="car-specs-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- 5. Full Description & Equipment -->
+      <div style="margin-top: 3.5rem;">
+        <h3 class="heading-section" style="font-size: 1.5rem;">Equipamiento & Mantenimiento</h3>
+        <div id="car-desc-body" style="color: var(--text-secondary); line-height: 1.8; white-space: pre-line; background: var(--bg-card); padding: 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          Cargando información del vehículo...
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Fullscreen Gallery Lightbox -->
+  <div class="gallery-lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Visor a pantalla completa">
+    <div class="lightbox-content-wrap">
+      <button type="button" class="lightbox-close-btn" id="lightbox-close" aria-label="Cerrar visor">✕</button>
+      <button type="button" class="lightbox-nav-btn lightbox-nav-prev" id="lightbox-prev" aria-label="Foto anterior">&#10094;</button>
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Foto a pantalla completa" />
+      <button type="button" class="lightbox-nav-btn lightbox-nav-next" id="lightbox-next" aria-label="Foto siguiente">&#10095;</button>
+      <div class="lightbox-counter" id="lightbox-counter">Foto 1 / 1</div>
+    </div>
+  </div>
+
+  <!-- Mobile Sticky Bottom Action Bar (Appears on screens < 1024px) -->
+  <div class="mobile-car-bar" id="mobile-car-bar">
+    <div class="mobile-car-bar-price">
+      <span class="mobile-car-price-num" id="mobile-car-price">—</span>
+      <span class="mobile-car-price-sub">✓ 12 Meses Garantía Europea</span>
+    </div>
+    <a href="#" target="_blank" rel="noopener noreferrer" class="mobile-car-bar-btn" id="mobile-car-wa-btn">
+      <svg style="width: 1.15rem; height: 1.15rem; fill: currentColor;" viewBox="0 0 24 24">
+        <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.53 0 .22 5.31.22 11.84c0 2.09.55 4.13 1.59 5.92L0 24l6.43-1.69a11.8 11.8 0 0 0 5.63 1.43h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.39-8.42zM12 21.75c-1.8 0-3.53-.48-5.04-1.38l-.36-.21-3.82 1 1.02-3.72-.23-.38A9.86 9.86 0 0 1 2.12 11.84C2.12 6.39 6.55 1.95 12 1.95s9.88 4.44 9.88 9.89-4.44 9.91-9.88 9.91z"/>
+      </svg>
+      <span>Me interesa</span>
+    </a>
+  </div>
+
+  <!-- Floating WhatsApp (Desktop) -->
+  <a href="https://wa.me/34697464104" target="_blank" rel="noopener noreferrer" class="floating-wa" aria-label="Consulta directa con Marc por WhatsApp">
+    <span class="floating-wa-pulse"></span>
+    <svg style="width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.53 0 .22 5.31.22 11.84c0 2.09.55 4.13 1.59 5.92L0 24l6.43-1.69a11.8 11.8 0 0 0 5.63 1.43h.01c6.53 0 11.84-5.31 11.84-11.84 0-3.16-1.23-6.13-3.39-8.42zM12 21.75c-1.8 0-3.53-.48-5.04-1.38l-.36-.21-3.82 1 1.02-3.72-.23-.38A9.86 9.86 0 0 1 2.12 11.84C2.12 6.39 6.55 1.95 12 1.95s9.88 4.44 9.88 9.89-4.44 9.91-9.88 9.91z"/>
+    </svg>
+    <span>Consulta con Marc</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container text-center">
+      <img src="assets/logo_exotics.png" alt="Exotics Collections" style="height: 36px; margin: 0 auto 1rem;" />
+      <p style="color: var(--gold-light); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem;">
+        «Exclusividad, diseño y fiabilidad»
+      </p>
+      <p style="color: var(--text-muted); font-size: 0.8125rem;">
+        © 2026 Exotics Collections · Barcelona, España · Trato Directo con Marc Ibáñez
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/sanity-api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      var cfg = window.EXOTICS_CONFIG || {};
+      var sanity = window.ExoticsSanity;
+
+      // URL query params
+      var params = new URLSearchParams(window.location.search);
+      var carId = params.get('id');
+
+      var data = await sanity.fetchAllData();
+      var cars = (data && data.cars) || [];
+      var car = cars.find(function(c) { return c.id === carId; }) || cars[0];
+
+      if (!car) {
+        document.getElementById('car-desc-body').innerText = 'Vehículo no encontrado.';
+        return;
+      }
+
+      // Populate Texts
+      document.title = car.name + ' | Exotics Collections';
+      document.getElementById('breadcrumb-car').innerText = car.name;
+      document.getElementById('car-name-title').innerText = car.name;
+      document.getElementById('car-price-display').innerText = car.price;
+      document.getElementById('car-desc-body').innerText = car.description || 'Sin descripción detallada.';
+      document.getElementById('curator-note-text').innerText = '«' + car.whySelected + '»';
+
+      // Status pill & lateral band
+      var statusPill = document.getElementById('car-status-pill');
+      var statusPillText = document.getElementById('car-avail-badge-text');
+      var stickyCard = document.getElementById('sticky-booking-card');
+      var dgtPill = document.getElementById('car-dgt-pill');
+
+      dgtPill.innerText = car.dgtBadge || 'Etiqueta C';
+      if ((car.dgtBadge || '').indexOf('0') >= 0) dgtPill.className = 'bento-dgt-badge badge-zero';
+      else if ((car.dgtBadge || '').indexOf('ECO') >= 0) dgtPill.className = 'bento-dgt-badge badge-eco';
+      else dgtPill.className = 'bento-dgt-badge badge-c';
+
+      if (car.availability === 'disponible') {
+        statusPillText.innerText = 'Disponible para Entrega';
+        statusPill.className = 'bento-status-pill bento-status-pill--available';
+        stickyCard.style.borderLeftColor = 'var(--gold)';
+      } else {
+        statusPillText.innerText = 'Unidad Reservada';
+        statusPill.className = 'bento-status-pill bento-status-pill--reserved';
+        stickyCard.style.borderLeftColor = '#f59e0b';
+      }
+
+      // Dual Action WhatsApp Buttons
+      var interestBtn = document.getElementById('car-wa-interest-btn');
+      var reserveBtn = document.getElementById('car-wa-reserve-btn');
+
+      var interestUrl = cfg.getCarWhatsAppUrl(car.name, car.price, window.location.href, 'interest');
+      var reserveUrl = cfg.getCarWhatsAppUrl(car.name, car.price, window.location.href, 'reserve');
+
+      interestBtn.href = interestUrl;
+      reserveBtn.href = reserveUrl;
+
+      // Mobile Bottom Action Bar
+      var mobilePriceEl = document.getElementById('mobile-car-price');
+      var mobileWaBtn = document.getElementById('mobile-car-wa-btn');
+      if (mobilePriceEl) mobilePriceEl.innerText = car.price;
+      if (mobileWaBtn) mobileWaBtn.href = interestUrl;
+
+      // Video Showcase handling (Decision A2: Methodology video if no specific video)
+      var videoIframe = document.getElementById('car-video-iframe');
+      var videoTag = document.getElementById('car-video-tag');
+      var videoTitle = document.getElementById('car-video-title');
+      var videoDesc = document.getElementById('car-video-desc');
+
+      if (car.videoUrl) {
+        var vidId = sanity.extractYouTubeId(car.videoUrl);
+        if (vidId) {
+          videoIframe.src = 'https://www.youtube.com/embed/' + encodeURIComponent(vidId) + '?rel=0';
+          if (videoTag) videoTag.innerText = 'Vídeo Detallado & Sonido';
+          if (videoTitle) videoTitle.innerText = 'Auditoría y Prueba Dinámica de esta Unidad';
+          if (videoDesc) videoDesc.style.display = 'none';
+        }
+      } else {
+        // Marc & Fons Inspection Methodology Showcase
+        videoIframe.src = 'https://www.youtube.com/embed/7T5Bi2N6lM8?rel=0';
+        if (videoTag) videoTag.innerText = 'Metodología de Inspección Exotics';
+        if (videoTitle) videoTitle.innerText = 'Así peritamos y seleccionamos en Europa';
+        if (videoDesc) {
+          videoDesc.innerText = '«No compramos a ciegas». Marc Ibáñez y Fons te muestran el proceso in situ de comprobación de micras de pintura, diagnosis OBD profunda y prueba en Autobahn antes de la adquisición.';
+          videoDesc.style.display = 'block';
+        }
+      }
+
+      // Populate Specs Grid
+      var specsGrid = document.getElementById('car-specs-grid');
+      var specs = [
+        { label: 'Kilometraje Certificado', val: car.km },
+        { label: 'Año de Fabricación', val: car.year },
+        { label: 'Distintivo DGT', val: car.dgtBadge },
+        { label: 'Combustible', val: car.fuel },
+        { label: 'Transmisión', val: car.transmission },
+        { label: 'Plazas', val: car.seats },
+        { label: 'Color Exterior', val: car.colorExt },
+        { label: 'Garantía Incluida', val: '12 Meses Europea Certificada' }
+      ];
+
+      specsGrid.innerHTML = specs.map(function(s) {
+        return `
+          <div class="spec-box">
+            <span class="spec-label">${s.label}</span>
+            <span class="spec-val">${s.val || '—'}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Gallery & Fullscreen Lightbox Logic
+      var images = car.images || [];
+      if (!images.length) {
+        images = [{ thumb: car.coverImage, full: car.coverImage }];
+      }
+
+      var mainImg = document.getElementById('main-gallery-img');
+      var galleryWrap = document.getElementById('gallery-main-wrap');
+      var thumbsRow = document.getElementById('thumbs-row');
+      var currentIndex = 0;
+
+      // Lightbox DOM Elements
+      var lightbox = document.getElementById('gallery-lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      var lightboxCounter = document.getElementById('lightbox-counter');
+      var lightboxClose = document.getElementById('lightbox-close');
+      var lightboxPrev = document.getElementById('lightbox-prev');
+      var lightboxNext = document.getElementById('lightbox-next');
+
+      var galleryBackdrop = document.getElementById('gallery-backdrop');
+
+      function updateActiveImage(index) {
+        if (index < 0) index = images.length - 1;
+        if (index >= images.length) index = 0;
+        currentIndex = index;
+
+        var fullUrl = images[currentIndex].full;
+        if (galleryBackdrop) galleryBackdrop.style.backgroundImage = 'url(' + fullUrl + ')';
+
+        mainImg.style.opacity = '0.35';
+        setTimeout(function() {
+          mainImg.src = fullUrl;
+          mainImg.style.opacity = '1';
+        }, 120);
+
+        // Update active class & auto-scroll thumbnail into view
+        thumbsRow.querySelectorAll('.thumb-item').forEach(function(th, i) {
+          if (i === currentIndex) {
+            th.classList.add('active');
+            th.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            th.classList.remove('active');
+          }
+        });
+
+        // Update lightbox if open
+        if (lightbox && lightbox.classList.contains('active')) {
+          lightboxImg.src = images[currentIndex].full;
+          lightboxCounter.innerText = 'Foto ' + (currentIndex + 1) + ' / ' + images.length;
+        }
+      }
+
+      // Populate Thumbnails Reel
+      thumbsRow.innerHTML = images.map(function(img, i) {
+        return `
+          <div class="thumb-item ${i === 0 ? 'active' : ''}" data-index="${i}">
+            <img class="thumb-img" src="${img.thumb}" alt="Miniatura ${i + 1}" loading="lazy" />
+          </div>
+        `;
+      }).join('');
+
+      // Initialize first image and backdrop
+      if (images.length > 0) {
+        updateActiveImage(0);
+      }
+
+      thumbsRow.querySelectorAll('.thumb-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          var idx = parseInt(item.getAttribute('data-index'), 10);
+          updateActiveImage(idx);
+        });
+      });
+
+      document.getElementById('gallery-prev').addEventListener('click', function(e) {
+        e.stopPropagation();
+        updateActiveImage(currentIndex - 1);
+      });
+
+      document.getElementById('gallery-next').addEventListener('click', function(e) {
+        e.stopPropagation();
+        updateActiveImage(currentIndex + 1);
+      });
+
+      // Lightbox Handlers
+      function openLightbox() {
+        if (!lightbox) return;
+        lightboxImg.src = images[currentIndex].full;
+        lightboxCounter.innerText = 'Foto ' + (currentIndex + 1) + ' / ' + images.length;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      if (galleryWrap) {
+        galleryWrap.addEventListener('click', function(e) {
+          // If clicked on prev/next arrows, don't open lightbox
+          if (e.target.closest('.gallery-nav-btn')) return;
+          openLightbox();
+        });
+      }
+
+      if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+      if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', function(e) {
+          e.stopPropagation();
+          updateActiveImage(currentIndex - 1);
+        });
+      }
+      if (lightboxNext) {
+        lightboxNext.addEventListener('click', function(e) {
+          e.stopPropagation();
+          updateActiveImage(currentIndex + 1);
+        });
+      }
+
+      if (lightbox) {
+        lightbox.addEventListener('click', function(e) {
+          if (e.target === lightbox || e.target.classList.contains('lightbox-content-wrap')) {
+            closeLightbox();
+          }
+        });
+      }
+
+      // Keyboard navigation for gallery & lightbox
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') updateActiveImage(currentIndex - 1);
+        if (e.key === 'ArrowRight') updateActiveImage(currentIndex + 1);
+      });
+
+      updateActiveImage(0);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Temporary screenshots and logs
+/*.png
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
