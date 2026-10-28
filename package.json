@@ -1,0 +1,22 @@
+{
+  "name": "exotics-collections",
+  "version": "2.0.0",
+  "description": "Plataforma de alta gama para importación y showroom de vehículos seleccionados en Barcelona",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "node server.cjs",
+    "sync:sanity": "node scripts/fetch_sanity.js",
+    "sync:assets": "node scripts/download_assets.js"
+  },
+  "keywords": [
+    "supercars",
+    "luxury-cars",
+    "sanity-cms",
+    "european-import",
+    "automotive-design"
+  ],
+  "author": "Exotics Collections",
+  "license": "UNLICENSED",
+  "private": true
+}

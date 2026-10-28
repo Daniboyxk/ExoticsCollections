@@ -1,6 +1,8 @@
 # Temporary screenshots and logs
 /*.png
+audits/screenshots/*.png
 *.log
+scratch/
 
 # System files
 .DS_Store

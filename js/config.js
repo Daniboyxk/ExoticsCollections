@@ -96,3 +96,74 @@ window.EXOTICS_CONFIG = {
     return "https://wa.me/" + this.whatsappNumber + "?text=" + encodeURIComponent(lines.join("\n"));
   }
 };
+
+/**
+ * Universal Luxury Scroll & Micro-Interactions Controller
+ * Subtle champagne-gold progress hairline & silky scroll reveal
+ */
+(function() {
+  if (typeof window === 'undefined') return;
+
+  function initLuxuryInteractions() {
+    // 1. Hairline Scroll Progress Indicator
+    if (!document.querySelector('.luxury-scroll-indicator')) {
+      var progress = document.createElement('div');
+      progress.className = 'luxury-scroll-indicator';
+      progress.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(progress);
+
+      var isTicking = false;
+      window.addEventListener('scroll', function() {
+        if (!isTicking) {
+          window.requestAnimationFrame(function() {
+            var scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+            var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progress.style.width = Math.min(100, Math.max(0, pct)) + '%';
+            isTicking = false;
+          });
+          isTicking = true;
+        }
+      }, { passive: true });
+    }
+
+    // 2. Subtle Cinematic Scroll-Reveal on Headings, Cards & Modules
+    if ('IntersectionObserver' in window) {
+      var revealObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      var selectors = [
+        '.editorial-section-header',
+        '.editorial-heading-group',
+        '.editorial-card',
+        '.hero-editorial-divider',
+        '.catalog-nav-header',
+        '.step-card',
+        '.value-card',
+        '.team-member-card'
+      ];
+
+      document.querySelectorAll(selectors.join(', ')).forEach(function(el) {
+        if (!el.classList.contains('scroll-reveal')) {
+          el.classList.add('scroll-reveal');
+          revealObserver.observe(el);
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLuxuryInteractions);
+  } else {
+    initLuxuryInteractions();
+  }
+})();
