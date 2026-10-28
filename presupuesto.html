@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Presupuesto Ajustado & Desglose Estratégico | Exotics Collections</title>
-  <meta name="description" content="Propuesta económica ajustada, desglose detallado de valor para el cliente y horas técnicas para Exotics Collections." />
+  <title>Presupuesto Oficial (2 Hojas: Cliente e Interno) | Exotics Collections</title>
+  <meta name="description" content="Propuesta económica en dos hojas: Hoja 1 para el cliente con valor de negocio y opción de mantenimiento, y Hoja 2 confidencial con desglose técnico de horas y estrategia." />
   <link rel="icon" type="image/png" href="assets/logo_exotics.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +12,7 @@
   <style>
     :root {
       --bg-dark: #07090e;
-      --bg-card: rgba(13, 17, 25, 0.92);
+      --bg-card: rgba(13, 17, 25, 0.94);
       --bg-elevated: #111622;
       --gold: #d4a359;
       --gold-light: #f3d49a;
@@ -29,11 +29,7 @@
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-body);
@@ -44,12 +40,12 @@
       padding-bottom: 4rem;
     }
 
-    /* Print Controls Bar (Screen only) */
+    /* Top Sticky Controls */
     .top-actions-bar {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 9, 14, 0.95);
+      background: rgba(7, 9, 14, 0.96);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-subtle);
       padding: 0.85rem 1.5rem;
@@ -57,6 +53,36 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .sheet-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.3rem 0.4rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .sheet-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .sheet-tab-btn.active, .sheet-tab-btn:hover {
+      background: rgba(212, 163, 89, 0.18);
+      color: var(--gold-light);
     }
 
     .btn-action {
@@ -81,25 +107,25 @@
       color: #07090e;
       box-shadow: 0 4px 18px rgba(212, 163, 89, 0.4);
     }
-    .btn-print:hover {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
-    }
+    .btn-print:hover { filter: brightness(1.08); transform: translateY(-1px); }
 
     .btn-back {
       background: rgba(255, 255, 255, 0.06);
       color: var(--text-white);
       border-color: var(--border-subtle);
     }
-    .btn-back:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--gold);
+    .btn-back:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--gold); }
+
+    /* Container */
+    .sheets-wrapper {
+      max-width: 980px;
+      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
     }
 
-    /* Document Sheet Container */
     .quote-sheet {
-      max-width: 980px;
-      margin: 2.5rem auto;
       background: var(--bg-card);
       border: 1px solid var(--border-gold);
       border-radius: 16px;
@@ -108,7 +134,38 @@
       position: relative;
     }
 
-    /* Header & Branding */
+    .quote-sheet--internal {
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px -15px rgba(56, 189, 248, 0.2);
+    }
+
+    .sheet-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.25rem;
+    }
+
+    .sheet-badge--client {
+      background: rgba(212, 163, 89, 0.15);
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+    }
+
+    .sheet-badge--internal {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    /* Header */
     .quote-header {
       display: flex;
       align-items: flex-start;
@@ -144,7 +201,7 @@
       background: rgba(17, 22, 34, 0.7);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 1.25rem 1.5rem;
+      padding: 1.15rem 1.35rem;
     }
 
     .doc-title {
@@ -162,12 +219,8 @@
       color: var(--text-secondary);
       line-height: 1.6;
     }
+    .meta-line strong { color: var(--text-white); }
 
-    .meta-line strong {
-      color: var(--text-white);
-    }
-
-    /* Client & Provider Strip */
     .parties-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -179,21 +232,21 @@
       background: rgba(17, 22, 34, 0.6);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 1.35rem 1.5rem;
+      padding: 1.25rem 1.35rem;
     }
 
     .party-card-title {
       font-family: var(--font-heading);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--gold);
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.5rem;
     }
 
     .party-name {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #fff;
       margin-bottom: 0.25rem;
@@ -205,14 +258,9 @@
       line-height: 1.5;
     }
 
-    /* Section Styling */
-    .quote-section {
-      margin-bottom: 2.75rem;
-    }
-
     .section-heading {
       font-family: var(--font-heading);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--text-white);
       text-transform: uppercase;
@@ -227,39 +275,40 @@
       content: '';
       display: inline-block;
       width: 4px;
-      height: 1.25rem;
+      height: 1.2rem;
       background: var(--gold-gradient);
       border-radius: 2px;
+    }
+
+    .section-heading--internal::before {
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
     }
 
     .section-lead {
       font-size: 0.9rem;
       color: var(--text-secondary);
-      margin-bottom: 1.25rem;
-      line-height: 1.65;
+      margin-bottom: 1.35rem;
+      line-height: 1.6;
     }
 
-    /* ROI Callout Box */
+    /* ROI Callout Banner */
     .roi-banner {
-      background: linear-gradient(135deg, rgba(212, 163, 89, 0.12), rgba(17, 22, 34, 0.8));
+      background: linear-gradient(135deg, rgba(212, 163, 89, 0.12), rgba(17, 22, 34, 0.85));
       border: 1px solid var(--gold);
       border-left: 4px solid var(--gold);
       border-radius: 12px;
-      padding: 1.5rem 1.75rem;
+      padding: 1.35rem 1.5rem;
       margin-bottom: 2rem;
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
-    .roi-icon {
-      font-size: 2.25rem;
-      flex-shrink: 0;
-    }
+    .roi-icon { font-size: 2rem; flex-shrink: 0; line-height: 1; }
 
     .roi-title {
       font-family: var(--font-heading);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--gold-light);
       margin-bottom: 0.25rem;
@@ -271,175 +320,137 @@
       line-height: 1.55;
     }
 
-    /* Dual Explanation Module Card */
-    .module-card {
-      background: rgba(14, 18, 26, 0.75);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      transition: border-color 0.25s ease;
-    }
-
-    .module-card:hover {
-      border-color: rgba(212, 163, 89, 0.4);
-    }
-
-    .module-header {
-      background: rgba(19, 25, 38, 0.95);
-      padding: 1rem 1.35rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-subtle);
-      gap: 1rem;
-    }
-
-    .module-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .module-num {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 0.8125rem;
-      color: var(--gold);
-      background: rgba(212, 163, 89, 0.12);
-      padding: 0.25rem 0.65rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(212, 163, 89, 0.3);
-    }
-
-    .module-name {
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .module-price-badge {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--gold-light);
-      white-space: nowrap;
-    }
-
-    .module-body {
-      padding: 1.35rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .col-perspective {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .col-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.25rem;
-    }
-
-    .col-tag--client {
-      color: #38bdf8;
-    }
-
-    .col-tag--tech {
-      color: var(--gold-light);
-    }
-
-    .col-text {
-      font-size: 0.825rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .col-text strong {
-      color: var(--text-white);
-    }
-
-    .col-text ul {
-      margin-top: 0.4rem;
-      margin-left: 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    code {
-      font-family: 'SF Mono', Consolas, Monaco, monospace;
-      font-size: 0.75rem;
-      background: rgba(212, 163, 89, 0.12);
-      color: var(--gold-light);
-      padding: 0.15rem 0.35rem;
-      border-radius: 4px;
-      border: 1px solid rgba(212, 163, 89, 0.25);
-    }
-
-    /* Market Benchmark Table (5 Companies) */
-    .market-table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      margin-bottom: 1.5rem;
-      background: rgba(11, 15, 23, 0.8);
-    }
-
-    .market-table {
+    /* Tables */
+    .clean-table {
       width: 100%;
       border-collapse: collapse;
-      text-align: left;
-      font-size: 0.825rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.75rem;
+      background: rgba(11, 15, 23, 0.8);
+      font-size: 0.85rem;
     }
 
-    .market-table th {
+    .clean-table th {
       background: rgba(17, 22, 34, 0.95);
       color: var(--gold-light);
       font-family: var(--font-heading);
       font-weight: 700;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      font-size: 0.72rem;
       padding: 0.85rem 1.15rem;
       border-bottom: 1px solid var(--border-subtle);
+      text-align: left;
     }
 
-    .market-table td {
-      padding: 0.85rem 1.15rem;
+    .clean-table td {
+      padding: 1rem 1.15rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
       color: var(--text-secondary);
-      vertical-align: middle;
+      line-height: 1.55;
     }
 
-    .market-table tr:last-child td {
-      border-bottom: none;
-    }
+    .clean-table tr:last-child td { border-bottom: none; }
 
-    .market-table tr.highlight-row {
-      background: rgba(212, 163, 89, 0.09);
-      border-left: 3px solid var(--gold);
-    }
-
-    .market-table tr.highlight-row td {
+    .item-title {
+      font-weight: 700;
       color: var(--text-white);
-      font-weight: 600;
+      font-size: 0.925rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-desc {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      line-height: 1.55;
+    }
+
+    .item-price {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* Monthly Plan Box (Opción A) */
+    .monthly-plan-card {
+      background: linear-gradient(145deg, rgba(18, 24, 36, 0.9), rgba(10, 13, 20, 0.95));
+      border: 1px solid var(--gold);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 25px -10px var(--gold-glow);
+    }
+
+    .monthly-plan-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(212, 163, 89, 0.3);
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .monthly-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .monthly-plan-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .monthly-plan-price {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+
+    .monthly-coverage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.15rem;
+      font-size: 0.825rem;
+    }
+
+    .coverage-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+    .coverage-item span.check {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+    .coverage-item strong {
+      color: var(--text-white);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .coverage-item p {
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      line-height: 1.45;
     }
 
     /* Totals Summary Box */
     .totals-grid {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 1.1fr 1fr;
       gap: 2rem;
       align-items: start;
       margin-top: 2rem;
@@ -476,13 +487,8 @@
       align-items: flex-start;
       gap: 0.5rem;
     }
-    .guarantee-list li span {
-      color: var(--gold);
-      font-weight: 700;
-    }
-    .guarantee-list li strong {
-      color: var(--text-white);
-    }
+    .guarantee-list li span { color: var(--gold); font-weight: 700; }
+    .guarantee-list li strong { color: var(--text-white); }
 
     .totals-card {
       background: linear-gradient(145deg, rgba(20, 26, 38, 0.95), rgba(10, 13, 20, 0.95));
@@ -532,16 +538,12 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
-      margin-top: 3.5rem;
+      margin-top: 3rem;
       padding-top: 2rem;
       border-top: 1px solid var(--border-subtle);
     }
 
-    .signature-card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+    .signature-card { display: flex; flex-direction: column; gap: 0.5rem; }
 
     .signature-role {
       font-size: 0.75rem;
@@ -552,7 +554,7 @@
     }
 
     .signature-line {
-      height: 60px;
+      height: 55px;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
       display: flex;
       align-items: flex-end;
@@ -563,436 +565,536 @@
       font-size: 0.95rem;
     }
 
-    .signature-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-white);
+    .signature-name { font-size: 0.85rem; font-weight: 700; color: var(--text-white); }
+    .signature-sub { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Internal Sheet Callout Cards */
+    .internal-box {
+      background: rgba(15, 23, 38, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .signature-sub {
+    .internal-box-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    code {
+      font-family: 'SF Mono', Consolas, Monaco, monospace;
       font-size: 0.75rem;
-      color: var(--text-muted);
+      background: rgba(212, 163, 89, 0.12);
+      color: var(--gold-light);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid rgba(212, 163, 89, 0.25);
     }
 
-    /* Print Specific Overrides */
+    /* Print Break */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+      margin-top: 1rem;
+    }
+
     @media print {
-      @page {
-        size: A4;
-        margin: 8mm 10mm;
-      }
-
-      body {
-        background: #000 !important;
-        color: #f1f4f9 !important;
-        padding-bottom: 0;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-
-      .top-actions-bar {
-        display: none !important;
-      }
-
-      .quote-sheet {
-        margin: 0 !important;
-        padding: 1.25rem !important;
-        border: 1px solid #d4a359 !important;
-        box-shadow: none !important;
-        background: #0a0d14 !important;
-        max-width: 100% !important;
-      }
-
-      .module-card {
-        page-break-inside: avoid;
-      }
-
-      .page-break {
-        page-break-before: always;
-      }
+      @page { size: A4; margin: 8mm 10mm; }
+      body { background: #000 !important; color: #f1f4f9 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .top-actions-bar { display: none !important; }
+      .sheets-wrapper { gap: 0 !important; margin: 0 !important; max-width: 100% !important; }
+      .quote-sheet { margin: 0 !important; padding: 1.25rem !important; border: 1px solid #d4a359 !important; box-shadow: none !important; background: #0a0d14 !important; max-width: 100% !important; }
+      .page-break { page-break-before: always !important; break-before: page !important; }
     }
 
     @media (max-width: 768px) {
-      .quote-sheet {
-        padding: 1.75rem 1.25rem;
-        margin: 1rem;
-      }
-      .quote-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .doc-meta-card {
-        text-align: left;
-        width: 100%;
-      }
-      .parties-grid,
-      .module-body,
-      .totals-grid,
-      .signatures-grid {
-        grid-template-columns: 1fr;
-      }
-      .roi-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
-      }
+      .quote-sheet { padding: 1.75rem 1.25rem; }
+      .quote-header { flex-direction: column; align-items: flex-start; }
+      .doc-meta-card { text-align: left; width: 100%; }
+      .parties-grid, .totals-grid, .signatures-grid, .monthly-coverage-grid { grid-template-columns: 1fr; }
+      .top-actions-bar { flex-direction: column; align-items: stretch; }
+      .sheet-tabs { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Action Toolbar (Hidden in Print / PDF) -->
-  <aside class="top-actions-bar" aria-label="Controles de propuesta">
+  <!-- Top Action Toolbar -->
+  <aside class="top-actions-bar" aria-label="Controles de navegación">
     <div style="display: flex; align-items: center; gap: 0.75rem;">
       <a href="index.html" class="btn-action btn-back">← Volver a la Web</a>
-      <span style="font-size: 0.8125rem; color: var(--text-muted);">Propuesta Ajustada · Tarifa Esencial Exotics Collections</span>
+      <div class="sheet-tabs">
+        <a href="#hoja-cliente" class="sheet-tab-btn active">📄 Hoja 1: Para el Cliente</a>
+        <a href="#hoja-interno" class="sheet-tab-btn">🔒 Hoja 2: Para Ti (Interno)</a>
+      </div>
     </div>
     <button type="button" onclick="window.print()" class="btn-action btn-print">
       <svg style="width: 1rem; height: 1rem; fill: currentColor;" viewBox="0 0 24 24">
         <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
       </svg>
-      <span>Descargar en PDF / Imprimir</span>
+      <span>Descargar en PDF / Imprimir Ambas Hojas</span>
     </button>
   </aside>
 
-  <!-- Printable Quote Sheet -->
-  <main class="quote-sheet" id="quote-document">
+  <div class="sheets-wrapper">
 
-    <!-- Header & Brand -->
-    <header class="quote-header">
-      <div class="brand-group">
-        <img src="assets/logo_exotics.png" alt="Exotics Collections Logo" class="brand-logo" />
-        <span class="brand-tagline">Bespoke Supercar Sourcing & European Imports</span>
+    <!-- =========================================================================
+         HOJA 1: PROPUESTA COMERCIAL OFICIAL (PARA EL CLIENTE / MARC IBÁÑEZ)
+         ========================================================================= -->
+    <main class="quote-sheet" id="hoja-cliente">
+      
+      <div class="sheet-badge sheet-badge--client">
+        <span>📄 HOJA 1 · PROPUESTA OFICIAL PARA EL CLIENTE</span>
       </div>
-      <div class="doc-meta-card">
-        <div class="doc-title">Presupuesto Ajustado</div>
-        <div class="meta-line">Modalidad: <strong>Tarifa Esencial Llave en Mano</strong></div>
-        <div class="meta-line">Ref: <strong>PROP-2026-EXOTICS-AJUSTADO</strong></div>
-        <div class="meta-line">Fecha: <strong>28 de Octubre, 2026</strong></div>
-      </div>
-    </header>
 
-    <!-- Parties Involved -->
-    <section class="parties-grid">
-      <div class="party-card">
-        <div class="party-card-title">Cliente / Titular</div>
-        <div class="party-name">Exotics Collections</div>
-        <div class="party-detail">Atn: <strong>Marc Ibáñez</strong> (@exoticsbcn)</div>
-        <div class="party-detail">Actividad: Importación & Venta de Vehículos de Altas Prestaciones</div>
-        <div class="party-detail">Ubicación: Barcelona, España</div>
-      </div>
-      <div class="party-card">
-        <div class="party-card-title">Dirección Técnica & Desarrollo</div>
-        <div class="party-name">Luxury Web Engineering</div>
-        <div class="party-detail">Especialidad: Desarrollo Web Jamstack & Sector Automotriz</div>
-        <div class="party-detail">Tecnología: Sanity.io CMS · JavaScript Nativo · iOS Safari QA</div>
-        <div class="party-detail">Objetivo: Máxima calidad visual eliminando costes de agencia</div>
-      </div>
-    </section>
+      <!-- Header & Brand -->
+      <header class="quote-header">
+        <div class="brand-group">
+          <img src="assets/logo_exotics.png" alt="Exotics Collections Logo" class="brand-logo" />
+          <span class="brand-tagline">Bespoke Supercar Sourcing & European Imports</span>
+        </div>
+        <div class="doc-meta-card">
+          <div class="doc-title">Presupuesto de Proyecto</div>
+          <div class="meta-line">Ref: <strong>PROP-2026-EXOTICS-CLIENTE</strong></div>
+          <div class="meta-line">Modalidad: <strong>Llave en Mano (Propiedad 100%)</strong></div>
+          <div class="meta-line">Fecha: <strong>28 de Octubre, 2026</strong></div>
+        </div>
+      </header>
 
-    <!-- ROI Banner: Por qué se amortiza solo -->
-    <div class="roi-banner">
-      <div class="roi-icon">⚡</div>
-      <div>
-        <div class="roi-title">Retorno de Inversión (ROI): Amortización con 1 Solo Coche</div>
-        <div class="roi-desc">
-          En el sector de importación y venta de deportivos (Porsche, BMW M, Audi RS, AMG), el margen de beneficio por gestión o venta ronda entre <strong>2.000 € y 6.000 €</strong> por unidad. Con <strong>una única venta o encargo</strong> captado a través de esta plataforma web, el coste del proyecto queda <strong>100% amortizado desde el primer mes</strong>.
+      <!-- Parties Involved -->
+      <section class="parties-grid">
+        <div class="party-card">
+          <div class="party-card-title">Cliente / Titular</div>
+          <div class="party-name">Exotics Collections</div>
+          <div class="party-detail">Atn: <strong>Marc Ibáñez</strong> (@exoticsbcn)</div>
+          <div class="party-detail">Actividad: Importación & Venta de Vehículos de Alta Gama</div>
+          <div class="party-detail">Ubicación: Barcelona, España</div>
+        </div>
+        <div class="party-card">
+          <div class="party-card-title">Dirección Técnica & Desarrollo</div>
+          <div class="party-name">Luxury Web Engineering Team</div>
+          <div class="party-detail">Especialidad: Desarrollo Web Jamstack & Sector Automotriz</div>
+          <div class="party-detail">Tecnología: Sanity.io CMS · JavaScript Nativo · iOS Safari QA</div>
+          <div class="party-detail">Estándar: Maison Automotive & Hollmann Benchmark</div>
+        </div>
+      </section>
+
+      <!-- ROI Banner -->
+      <div class="roi-banner">
+        <div class="roi-icon">⚡</div>
+        <div>
+          <div class="roi-title">Retorno de Inversión (ROI): Amortización con 1 Solo Coche</div>
+          <div class="roi-desc">
+            En el sector de importación de deportivos (Porsche, BMW M, Audi RS, AMG), el margen medio por gestión ronda entre <strong>2.000 € y 6.000 €</strong> por vehículo. Con <strong>un único encargo cerrado</strong> a través de esta plataforma, el coste del proyecto queda <strong>100% amortizado y pagado</strong>.
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 1. Executive Summary -->
-    <section class="quote-section">
-      <h2 class="section-heading">1. Resumen de la Propuesta Ajustada</h2>
-      <p class="section-lead">
-        Esta versión ajustada optimiza al máximo el coste sin renunciar a la esencia del proyecto: <strong>cero cuotas mensuales de mantenimiento obligatorio</strong>, código propio sin suscripciones a plantillas de WordPress, velocidad extrema de carga y una presencia visual a la altura de las mejores marcas europeas.
-      </p>
-    </section>
+      <!-- Section: Desglose de Módulos (Explicado para el Cliente) -->
+      <section>
+        <h2 class="section-heading">1. Desglose de Módulos y Valor para tu Negocio</h2>
+        <p class="section-lead">
+          Cada sección ha sido diseñada para resolver un problema comercial concreto y maximizar la confianza del comprador:
+        </p>
 
-    <!-- 2. Dual Breakdown: Por qué cuesta cada sección (Para el Cliente vs Para Ti) -->
-    <section class="quote-section">
-      <h2 class="section-heading">2. Desglose Sección por Sección (Explicación para el Cliente y Técnica)</h2>
-      <p class="section-lead">
-        A continuación se detalla con total transparencia el valor de negocio que percibe el cliente de coches y el trabajo técnico real detrás de cada módulo:
-      </p>
-
-      <!-- Module 1 -->
-      <article class="module-card">
-        <div class="module-header">
-          <div class="module-title-wrap">
-            <span class="module-num">Módulo 1</span>
-            <span class="module-name">Dirección de Arte, Hero & Luxury Design System</span>
-          </div>
-          <div class="module-price-badge">350,00 €</div>
-        </div>
-        <div class="module-body">
-          <div class="col-perspective">
-            <span class="col-tag col-tag--client">🎯 Para el Cliente (Marc / Comprador VIP):</span>
-            <div class="col-text">
-              • <strong>La regla de los 3 segundos:</strong> Un comprador dispuesto a pagar 80.000€ o 150.000€ por un deportivo huye de webs con aspecto de plantilla barata.<br />
-              • La estética oscura (Obsidian Black) con detalles en oro champagne transmite de inmediato exclusividad, solvencia y seguridad.<br />
-              • El Hero con vídeo de fondo cinemático y los botones de acción sitúan a Exotics Collections al mismo nivel de prestigio que concesionarios oficiales como Porsche Zentrum o Maison Automotive.
-            </div>
-          </div>
-          <div class="col-perspective">
-            <span class="col-tag col-tag--tech">⚙️ Para Ti / Detrás de Cámaras (Horas & Técnica):</span>
-            <div class="col-text">
-              • <strong>Tiempo estimado:</strong> ~5 horas de diseño y maquetación CSS.<br />
-              • <strong>Qué se hace técnicamente:</strong> Definición del sistema de variables CSS (colores HSL, gradientes metálicos, efectos de cristal con <code>backdrop-filter</code>).<br />
-              • Creación de microinteracciones, tipografía escalable con <code>clamp()</code> y optimización de contraste para evitar fatiga visual.<br />
-              • Se elimina el coste de contratar a un diseñador externo (que cobraría 600€-900€ solo por el diseño en Figma).
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Module 2 -->
-      <article class="module-card">
-        <div class="module-header">
-          <div class="module-title-wrap">
-            <span class="module-num">Módulo 2</span>
-            <span class="module-name">Bento Grid Asimétrico de Entregas & Casos de Éxito</span>
-          </div>
-          <div class="module-price-badge">450,00 €</div>
-        </div>
-        <div class="module-body">
-          <div class="col-perspective">
-            <span class="col-tag col-tag--client">🎯 Para el Cliente (Marc / Comprador VIP):</span>
-            <div class="col-text">
-              • <strong>Prueba social demoledora:</strong> En lugar de una aburrida lista de fotos, el Bento Grid presenta los coches entregados (Cayman GT4, McLaren 750S, Taycan) como trofeos de confianza.<br />
-              • Las etiquetas de procedencia (<em>Centro Porsche Oficial</em>, <em>Audi Zentrum</em>) y las insignias de <em>"Ahorro ~15%"</em> y <em>"8.000 km certificados"</em> derriban el miedo a comprar coches importados.<br />
-              • Incluye llamada a la acción para descubrir el catálogo de stock completo en <code>stock.html</code>.
-            </div>
-          </div>
-          <div class="col-perspective">
-            <span class="col-tag col-tag--tech">⚙️ Para Ti / Detrás de Cámaras (Horas & Técnica):</span>
-            <div class="col-text">
-              • <strong>Tiempo estimado:</strong> ~7 horas de maquetación y adaptabilidad.<br />
-              • <strong>Qué se hace técnicamente:</strong> Maquetación avanzada en CSS Grid asimétrico (tarjeta Hero 2x2, tarjetas panorámicas 2x1 y tarjetas estándar).<br />
-              • Responsive dinámico: en pantallas grandes se ve como una revista de lujo y en móvil se reorganiza automáticamente en una columna vertical táctil fluida sin romper el layout.<br />
-              • Efectos hover con zoom de imagen y resplandor perimetral dorado sin ralentizar la navegación.
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Module 3 -->
-      <article class="module-card">
-        <div class="module-header">
-          <div class="module-title-wrap">
-            <span class="module-num">Módulo 3</span>
-            <span class="module-name">Conexión con Sanity.io CMS & Ficha de Coche (`car.html`)</span>
-          </div>
-          <div class="module-price-badge">500,00 €</div>
-        </div>
-        <div class="module-body">
-          <div class="col-perspective">
-            <span class="col-tag col-tag--client">🎯 Para el Cliente (Marc / Comprador VIP):</span>
-            <div class="col-text">
-              • <strong>Independencia total sin pagar a programadores:</strong> Marc o su equipo pueden subir un coche nuevo, cambiar precios o marcarlo como "Vendido" desde el móvil en 2 minutos.<br />
-              • Cada coche tiene su ficha exhaustiva: fotos en alta definición, vídeo de YouTube de la prueba de sonido, ficha técnica y la nota personal del curador (<em>"¿Por qué seleccionamos esta unidad?"</em>).<br />
-              • Transmite transparencia total y evita que el cliente llame para preguntar datos básicos.
-            </div>
-          </div>
-          <div class="col-perspective">
-            <span class="col-tag col-tag--tech">⚙️ Para Ti / Detrás de Cámaras (Horas & Técnica):</span>
-            <div class="col-text">
-              • <strong>Tiempo estimado:</strong> ~8 horas de programación Full-stack.<br />
-              • <strong>Qué se hace técnicamente:</strong> Configuración del backend headless en Sanity.io (esquemas de datos <code>car</code>, <code>importacion</code>).<br />
-              • Consultas en lenguaje GROQ mediante API REST, renderizado de la galería con visor a pantalla completa (lightbox) y carrusel de miniaturas.<br />
-              • Manejo de imágenes pesadas a través de la CDN de Sanity (formato WebP automático, carga diferida <code>lazy-loading</code>).
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Module 4 -->
-      <article class="module-card">
-        <div class="module-header">
-          <div class="module-title-wrap">
-            <span class="module-num">Módulo 4</span>
-            <span class="module-name">Embudo de Conversión & Lead Routing WhatsApp Directo</span>
-          </div>
-          <div class="module-price-badge">300,00 €</div>
-        </div>
-        <div class="module-body">
-          <div class="col-perspective">
-            <span class="col-tag col-tag--client">🎯 Para el Cliente (Marc / Comprador VIP):</span>
-            <div class="col-text">
-              • <strong>El dinero está en la rapidez:</strong> El comprador de coches exclusivos no rellena formularios lentos por email; quiere hablar con Marc al instante.<br />
-              • Doble botón estratégico: <code>Me interesa esta unidad</code> (para resolver dudas) y <code>Reservar unidad</code> (para cerrar la señal de compra).<br />
-              • Al pulsar, el mensaje de WhatsApp se abre pre-rellenado con el nombre exacto del coche, precio y chasis, ahorrando tiempo a Marc y al comprador.
-            </div>
-          </div>
-          <div class="col-perspective">
-            <span class="col-tag col-tag--tech">⚙️ Para Ti / Detrás de Cámaras (Horas & Técnica):</span>
-            <div class="col-text">
-              • <strong>Tiempo estimado:</strong> ~4 horas de lógica y pruebas de conversión.<br />
-              • <strong>Qué se hace técnicamente:</strong> Algoritmo en JavaScript para construir URLs de WhatsApp (<code>wa.me/34697464104?text=...</code>) con codificación segura de caracteres (<code>encodeURIComponent</code>).<br />
-              • Validación del formulario de importación a medida en cliente para que solo lleguen consultas serias con presupuesto mínimo definido.<br />
-              • Cero coste de software externo de CRM o pasarelas caras.
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Module 5 -->
-      <article class="module-card">
-        <div class="module-header">
-          <div class="module-title-wrap">
-            <span class="module-num">Módulo 5</span>
-            <span class="module-name">Optimización Móvil iPhone (WebKit), SEO & Despliegue SSL</span>
-          </div>
-          <div class="module-price-badge">250,00 €</div>
-        </div>
-        <div class="module-body">
-          <div class="col-perspective">
-            <span class="col-tag col-tag--client">🎯 Para el Cliente (Marc / Comprador VIP):</span>
-            <div class="col-text">
-              • <strong>Más del 80% del tráfico llega desde iPhone:</strong> Si la web se desconfigura en Safari, tiembla o hace un zoom molesto en los formularios, el cliente pierde el interés.<br />
-              • La web incluye una barra flotante inferior táctil tipo App nativa (Dock Bar) que permite navegar con una sola mano.<br />
-              • Web rápida, segura con candado verde SSL y optimizada para que al compartir un coche por Instagram o WhatsApp aparezca la foto y el titular perfecto.
-            </div>
-          </div>
-          <div class="col-perspective">
-            <span class="col-tag col-tag--tech">⚙️ Para Ti / Detrás de Cámaras (Horas & Técnica):</span>
-            <div class="col-text">
-              • <strong>Tiempo estimado:</strong> ~4 horas de QA en dispositivos físicos y despliegue.<br />
-              • <strong>Qué se hace técnicamente:</strong> Implementación de <code>env(safe-area-inset-bottom)</code> para el notch y barra inferior de iOS, tipografías de 16px para bloquear el auto-zoom de WebKit.<br />
-              • Metadatos OpenGraph (og:image, og:title), configuración DNS, certificado SSL y subida a producción en servidor ultra-rápido Edge sin coste de licencia.
-            </div>
-          </div>
-        </div>
-      </article>
-
-    </section>
-
-    <!-- 3. Totals & Economic Summary -->
-    <section class="quote-section">
-      <h2 class="section-heading">3. Resumen Económico & Coste Final</h2>
-
-      <div class="totals-grid">
-        
-        <div class="guarantee-box">
-          <div class="guarantee-title">Por qué este precio es el más rentable</div>
-          <ul class="guarantee-list">
-            <li><span>✓</span> <strong>Total Horas de Ingeniería:</strong> ~28 horas de desarrollo especializado (tarifa efectiva de ~66€/hora vs los 120€/hora que cobra una agencia).</li>
-            <li><span>✓</span> <strong>Cero Cuotas Mensuales Ocultas:</strong> La web es propiedad 100% de Exotics Collections. No hay pagos mensuales por plugins ni CMS.</li>
-            <li><span>✓</span> <strong>Ahorro frente a Agencia:</strong> El precio medio del sector es de 13.780 €. Te estás ahorrando más de 11.000 €.</li>
-            <li><span>✓</span> <strong>Soporte Post-Entrega:</strong> 30 días de garantía y ajustes menores incluidos tras la publicación.</li>
-          </ul>
-        </div>
-
-        <div class="totals-card">
-          <div class="total-row">
-            <span>Suma de Módulos (28h de trabajo):</span>
-            <span style="font-weight: 700; color: #fff;">1.850,00 €</span>
-          </div>
-          <div class="total-row">
-            <span>Descuento Especial Fase Lanzamiento:</span>
-            <span style="color: #34d399; font-weight: 700;">Incluido (Tarifa Directa)</span>
-          </div>
-          <div class="total-row">
-            <span>Base Imponible (PVP Ajustado):</span>
-            <span style="font-weight: 700; color: #fff;">1.850,00 €</span>
-          </div>
-          <div class="total-row">
-            <span>I.V.A. (21%):</span>
-            <span style="font-weight: 600;">388,50 €</span>
-          </div>
-          <div class="total-row final-cost">
-            <div class="final-label">Coste Final Total:</div>
-            <div class="final-amount">2.238,50 €</div>
-          </div>
-          <div style="font-size: 0.72rem; color: var(--gold-light); text-align: right; margin-top: 0.4rem; font-weight: 600;">
-            * Amortizable con el margen de la primera importación
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 4. Benchmark Reminder -->
-    <section class="quote-section">
-      <h2 class="section-heading">4. Comparativa Rápida con el Mercado</h2>
-      <div class="market-table-wrap">
-        <table class="market-table">
+        <table class="clean-table">
           <thead>
             <tr>
-              <th>Opción</th>
-              <th>Enfoque</th>
-              <th>Precio Medio Mercado</th>
-              <th>Tu Ahorro</th>
+              <th style="width: 76%;">Módulo y Beneficio Comercial Directo</th>
+              <th style="width: 24%; text-align: right;">Importe</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Agencias Especializadas Supercars (Maison / Hollmann Tier)</td>
-              <td>Desarrollo a medida con grandes equipos comerciales y costes fijos</td>
-              <td>18.000 € – 25.000 €</td>
-              <td><span style="color: #34d399; font-weight: 700;">Ahorras ~90%</span></td>
+              <td>
+                <div class="item-title">MÓDULO 1: Dirección de Arte, Hero & Luxury Design System</div>
+                <div class="item-desc">
+                  <strong>Por qué se incluye:</strong> La regla de los 3 segundos. Un comprador con 80.000€ a 150.000€ desconfía de webs con aspecto de plantilla barata. La estética Obsidian Black con oro champagne, cristales ahumados y vídeo cinemático transmite de inmediato solvencia y exclusividad al nivel de Porsche Zentrum o Maison Automotive.
+                </div>
+              </td>
+              <td class="item-price">350,00 €</td>
             </tr>
             <tr>
-              <td>Agencias Jamstack a Medida en España (Cactus / Niquelao)</td>
-              <td>Headless CMS, React/JS nativo y Bento Grid</td>
-              <td>8.500 € – 15.000 €</td>
-              <td><span style="color: #34d399; font-weight: 700;">Ahorras ~80%</span></td>
+              <td>
+                <div class="item-title">MÓDULO 2: Bento Grid Asimétrico de Entregas & Casos de Éxito</div>
+                <div class="item-desc">
+                  <strong>Por qué se incluye:</strong> Prueba social irrefutable. En vez de un aburrido listado de fotos, los coches entregados (Cayman GT4, McLaren 750S, Taycan) se exhiben con badges de procedencia oficial (<em>Centro Porsche Oficial</em>, <em>Audi Zentrum</em>), sellos de <em>"Ahorro ~15%"</em> y <em>"8.000 km certificados"</em>, eliminando el miedo del cliente a importar.
+                </div>
+              </td>
+              <td class="item-price">450,00 €</td>
             </tr>
             <tr>
-              <td>Portales Concesionarios Estándar (MotorK / Extratégico)</td>
-              <td>Plantillas de automoción genéricas y CMS cerrados</td>
-              <td>4.800 € – 9.500 €</td>
-              <td><span style="color: #34d399; font-weight: 700;">Ahorras ~65%</span></td>
+              <td>
+                <div class="item-title">MÓDULO 3: Conexión con Sanity.io CMS & Ficha de Detalle (`car.html`)</div>
+                <div class="item-desc">
+                  <strong>Por qué se incluye:</strong> Independencia total. Puedes subir un coche nuevo, cambiar precios o marcarlo como "Vendido" desde el móvil en 2 minutos sin pagar a un programador cada semana. Incluye carrusel en alta definición, vídeo de YouTube de la prueba de sonido, ficha técnica y la nota personal del curador (<em>"¿Por qué seleccionamos esta unidad?"</em>).
+                </div>
+              </td>
+              <td class="item-price">500,00 €</td>
             </tr>
-            <tr class="highlight-row">
-              <td><strong>NUESTRA PROPUESTA AJUSTADA (EXOTICS COLLECTIONS)</strong></td>
-              <td><strong>Calidad Maison Automotive sin sobrecostes de estructura</strong></td>
-              <td><strong style="color: var(--gold-light);">1.850,00 € (+ IVA)</strong></td>
-              <td><strong style="color: var(--gold-light);">Mejor Relación Calidad/Precio</strong></td>
+            <tr>
+              <td>
+                <div class="item-title">MÓDULO 4: Embudo de Conversión & Lead Routing WhatsApp Directo con Marc</div>
+                <div class="item-desc">
+                  <strong>Por qué se incluye:</strong> El dinero está en la rapidez. El 90% de los tratos de superdeportivos se cierran por WhatsApp. Doble botón estratégico (<code>Me interesa esta unidad</code> y <code>Reservar unidad</code>) que abre tu chat con el modelo exacto, precio y número de chasis pre-escritos. El cliente solo tiene que pulsar "Enviar".
+                </div>
+              </td>
+              <td class="item-price">300,00 €</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="item-title">MÓDULO 5: Optimización Móvil iPhone (WebKit), SEO & Despliegue SSL</div>
+                <div class="item-desc">
+                  <strong>Por qué se incluye:</strong> Más del 80% de tus compradores navegan desde su iPhone. Incluye la barra flotante inferior táctil (Dock Bar) tipo App nativa para navegar con una sola mano, sin temblores ni saltos molestos, candado verde SSL y optimización para que al compartir un coche por Instagram o WhatsApp aparezca la foto y titular perfecto.
+                </div>
+              </td>
+              <td class="item-price">250,00 €</td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </section>
+      </section>
 
-    <!-- 5. Milestones -->
-    <section class="quote-section">
-      <h2 class="section-heading">5. Modalidad de Pago Cómoda</h2>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
-        <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
-          <div style="font-size: 0.72rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">1. Inicio de Proyecto</div>
-          <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">40% (740 €)</div>
-          <div style="font-size: 0.75rem; color: var(--text-muted);">A la confirmación para arrancar maquetación</div>
-        </div>
-        <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
-          <div style="font-size: 0.72rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">2. Prototipo & Sanity CMS</div>
-          <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">30% (555 €)</div>
-          <div style="font-size: 0.75rem; color: var(--text-muted);">Bento Grid funcional y subida de coches lista</div>
-        </div>
-        <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
-          <div style="font-size: 0.72rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">3. Despliegue en Vivo</div>
-          <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">30% (555 €)</div>
-          <div style="font-size: 0.75rem; color: var(--text-muted);">Testing final en iPhone y entrega de accesos</div>
-        </div>
-      </div>
-    </section>
+      <!-- Section: Totals Sheet 1 -->
+      <section>
+        <div class="totals-grid">
+          
+          <div class="guarantee-box">
+            <div class="guarantee-title">Condiciones & Garantías Incluidas</div>
+            <ul class="guarantee-list">
+              <li><span>✓</span> <strong>Web 100% de tu Propiedad:</strong> Sin cuotas obligatorias por usar el CMS ni mensualidades de plantillas.</li>
+              <li><span>✓</span> <strong>Garantía de QA iPhone:</strong> Certificado de visualización perfecta en iPhone 14/15/16 Pro.</li>
+              <li><span>✓</span> <strong>Soporte Post-Lanzamiento:</strong> 30 días de garantía y ajustes menores incluidos tras la entrega.</li>
+              <li><span>✓</span> <strong>Plazo de Entrega:</strong> 15 a 20 días laborables desde la confirmación.</li>
+            </ul>
+          </div>
 
-    <!-- Signatures -->
-    <footer class="signatures-grid">
-      <div class="signature-card">
-        <span class="signature-role">Dirección Técnica & Desarrollo</span>
-        <div class="signature-line">Luxury Web Engineering Team</div>
-        <span class="signature-name">Lead Creative & Full-stack Engineer</span>
-        <span class="signature-sub">Desarrollo Web & Sector Automoción</span>
-      </div>
-      <div class="signature-card">
-        <span class="signature-role">Cliente / Aceptación</span>
-        <div class="signature-line">Marc Ibáñez</div>
-        <span class="signature-name">Marc Ibáñez</span>
-        <span class="signature-sub">Fundador & CEO · Exotics Collections</span>
-      </div>
-    </footer>
+          <div class="totals-card">
+            <div class="total-row">
+              <span>Suma de Módulos (Valor del Proyecto):</span>
+              <span style="font-weight: 700; color: #fff;">1.850,00 €</span>
+            </div>
+            <div class="total-row">
+              <span>Descuento Especial Fase Lanzamiento:</span>
+              <span style="color: #34d399; font-weight: 700;">Incluido (Tarifa Directa)</span>
+            </div>
+            <div class="total-row">
+              <span>Base Imponible (PVP Ajustado):</span>
+              <span style="font-weight: 700; color: #fff;">1.850,00 €</span>
+            </div>
+            <div class="total-row">
+              <span>I.V.A. (21%):</span>
+              <span style="font-weight: 600;">388,50 €</span>
+            </div>
+            <div class="total-row final-cost">
+              <div class="final-label">Coste Final Total:</div>
+              <div class="final-amount">2.238,50 €</div>
+            </div>
+            <div style="font-size: 0.72rem; color: var(--gold-light); text-align: right; margin-top: 0.35rem; font-weight: 600;">
+              * Ahorro del 86% frente a agencias tradicionales (media 13.780 €)
+            </div>
+          </div>
 
-  </main>
+        </div>
+      </section>
+
+      <!-- Section: Opción de Mantenimiento Opcional A (Explicado para el Cliente) -->
+      <section style="margin-top: 2.5rem;">
+        <h2 class="section-heading">2. Servicio Opcional: Plan de Mantenimiento & Rendimiento VIP (Opción A)</h2>
+        
+        <div class="monthly-plan-card">
+          <div class="monthly-plan-header">
+            <div class="monthly-title-group">
+              <span style="font-size: 1.25rem;">🛡️</span>
+              <div>
+                <div class="monthly-plan-title">Opción A: Mantenimiento Técnico & Rendimiento VIP</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary);">Servicio 100% opcional y sin permanencia para tu total tranquilidad</div>
+              </div>
+            </div>
+            <div class="monthly-plan-price">79,00 € <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">/ mes (+ IVA)</span></div>
+          </div>
+
+          <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.55;">
+            La web es tuya y puedes usarla sin pagar nada mensual. Sin embargo, para que tú te dediques exclusivamente a viajar a Alemania y cerrar ventas sin preocuparte de aspectos técnicos, este plan cubre:
+          </p>
+
+          <div class="monthly-coverage-grid">
+            <div class="coverage-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Hosting Gestionado de Máxima Velocidad (Edge CDN)</strong>
+                <p>Servidores globales ultrarrápidos para que las fotos de los coches carguen al instante y certificado SSL seguro.</p>
+              </div>
+            </div>
+            <div class="coverage-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Copias de Seguridad Semanales (Backups en la Nube)</strong>
+                <p>Copia completa de todos tus vehículos, fotos, descripciones e historiales protegidos ante cualquier imprevisto.</p>
+              </div>
+            </div>
+            <div class="coverage-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Bolsa de 1,5 Horas al Mes de Soporte y Ajustes</strong>
+                <p>Cambiar textos, sustituir un teléfono, actualizar un banner o añadir una nueva marca sin pagar presupuestos extra.</p>
+              </div>
+            </div>
+            <div class="coverage-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Soporte Prioritario por WhatsApp en Fin de Semana</strong>
+                <p>Si un sábado un comprador de un Porsche te avisa de una duda o fallo, tienes resolución prioritaria en menos de 24 horas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Payment Milestones & Signatures -->
+      <section style="margin-top: 2rem;">
+        <h2 class="section-heading">3. Modalidad de Pago</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+          <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 0.72rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">1. Inicio de Proyecto</div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">40% (740 €)</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">A la confirmación para arrancar</div>
+          </div>
+          <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 0.72rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">2. Prototipo & Sanity</div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">30% (555 €)</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Bento Grid funcional y subida de stock</div>
+          </div>
+          <div style="background: rgba(17, 22, 34, 0.6); padding: 1.15rem; border-radius: 10px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 0.72rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">3. Despliegue en Vivo</div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0.35rem 0;">30% (555 €)</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Testing final en iPhone y entrega</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="signatures-grid">
+        <div class="signature-card">
+          <span class="signature-role">Dirección Técnica & Desarrollo</span>
+          <div class="signature-line">Luxury Web Engineering Team</div>
+          <span class="signature-name">Lead Creative & Full-stack Engineer</span>
+          <span class="signature-sub">Desarrollo Web & Sector Automoción</span>
+        </div>
+        <div class="signature-card">
+          <span class="signature-role">Cliente / Aceptación</span>
+          <div class="signature-line">Marc Ibáñez</div>
+          <span class="signature-name">Marc Ibáñez</span>
+          <span class="signature-sub">Fundador & CEO · Exotics Collections</span>
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- Page Break for Clean Printing / PDF Generation -->
+    <div class="page-break"></div>
+
+    <!-- =========================================================================
+         HOJA 2: ANEXO CONFIDENCIAL INTERNO (SOLO PARA TI / DETRÁS DE CÁMARAS)
+         ========================================================================= -->
+    <main class="quote-sheet quote-sheet--internal" id="hoja-interno">
+
+      <div class="sheet-badge sheet-badge--internal">
+        <span>🔒 HOJA 2 · ANEXO CONFIDENCIAL INTERNO (PARA TI / DIRECCIÓN TÉCNICA)</span>
+      </div>
+
+      <header class="quote-header" style="border-bottom-color: rgba(56, 189, 248, 0.2);">
+        <div class="brand-group">
+          <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #38bdf8;">
+            CONTROL DE COSTES, HORAS Y ESTRATEGIA
+          </div>
+          <span style="font-size: 0.8125rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+            Auditoría Interna de Rentabilidad · Exotics Collections
+          </span>
+        </div>
+        <div class="doc-meta-card" style="border-color: rgba(56, 189, 248, 0.2);">
+          <div class="doc-title" style="color: #38bdf8;">Documento Interno</div>
+          <div class="meta-line">Uso: <strong>Privado / Desarrollador</strong></div>
+          <div class="meta-line">Tarifa Efectiva: <strong>~66,00 € / hora</strong></div>
+          <div class="meta-line">Horas Totales: <strong>28 horas estimadas</strong></div>
+        </div>
+      </header>
+
+      <!-- Section: Desglose Técnico Real de Horas y Dificultad -->
+      <section>
+        <h2 class="section-heading section-heading--internal">1. Desglose Técnico Real: Horas Invertidas y Dificultad</h2>
+        <p class="section-lead">
+          Por qué cada módulo tiene ese precio internamente y en qué se van las 28 horas de trabajo:
+        </p>
+
+        <table class="clean-table">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Módulo Técnico</th>
+              <th style="width: 18%;">Horas Reales</th>
+              <th style="width: 17%;">Tarifa/Hora</th>
+              <th style="width: 15%; text-align: right;">Total Base</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong style="color: #fff;">Módulo 1: Design System & Hero</strong><br />
+                <span style="font-size: 0.78rem; color: var(--text-muted);">
+                  Variables CSS, gradiente Champagne Gold, cristales ahumados <code>backdrop-filter</code>, tipografía clamp() y botones píldora.
+                </span>
+              </td>
+              <td><strong>~5 horas</strong></td>
+              <td>70,00 €/h</td>
+              <td class="item-price" style="color: #38bdf8;">350,00 €</td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">Módulo 2: Bento Grid Asimétrico</strong><br />
+                <span style="font-size: 0.78rem; color: var(--text-muted);">
+                  CSS Grid asimétrico (tarjeta hero 2x2, panorámicas 2x1), responsive a columna única en móvil, overlays y badges de procedencia.
+                </span>
+              </td>
+              <td><strong>~7 horas</strong></td>
+              <td>64,28 €/h</td>
+              <td class="item-price" style="color: #38bdf8;">450,00 €</td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">Módulo 3: Sanity CMS & Ficha de Coche</strong><br />
+                <span style="font-size: 0.78rem; color: var(--text-muted);">
+                  Esquemas Sanity (car, importacion), consultas GROQ, CDN WebP, lightbox fullscreen, notas del curador y renderizado dinámico en <code>car.html?id=...</code>.
+                </span>
+              </td>
+              <td><strong>~8 horas</strong></td>
+              <td>62,50 €/h</td>
+              <td class="item-price" style="color: #38bdf8;">500,00 €</td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">Módulo 4: Embudo WhatsApp & Lead Routing</strong><br />
+                <span style="font-size: 0.78rem; color: var(--text-muted);">
+                  Generador dinámico de URLs de WhatsApp con chasis pre-cargado, doble botón (interés/reserva) y validación de formulario de búsqueda.
+                </span>
+              </td>
+              <td><strong>~4 horas</strong></td>
+              <td>75,00 €/h</td>
+              <td class="item-price" style="color: #38bdf8;">300,00 €</td>
+            </tr>
+            <tr>
+              <td>
+                <strong style="color: #fff;">Módulo 5: Mobile iPhone WebKit QA & SSL</strong><br />
+                <span style="font-size: 0.78rem; color: var(--text-muted);">
+                  Dock bar inferior fija, safe-areas de Apple (<code>env(safe-area-inset-bottom)</code>), tipografías de 16px para evitar auto-zoom y hosting Edge con SSL.
+                </span>
+              </td>
+              <td><strong>~4 horas</strong></td>
+              <td>62,50 €/h</td>
+              <td class="item-price" style="color: #38bdf8;">250,00 €</td>
+            </tr>
+            <tr style="background: rgba(56, 189, 248, 0.08); font-weight: 700;">
+              <td><strong style="color: #38bdf8;">TOTAL DESARROLLO INICIAL</strong></td>
+              <td><strong style="color: #fff;">~28 horas</strong></td>
+              <td><strong style="color: #fff;">~66,00 €/h</strong></td>
+              <td class="item-price" style="color: #38bdf8; font-size: 1.25rem;">1.850,00 €</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Section: Análisis de la Mensualidad de 79€/mes (Para Ti) -->
+      <section style="margin-top: 2rem;">
+        <h2 class="section-heading section-heading--internal">2. Análisis de la Mensualidad (79 €/mes): ¿Por qué es tu mejor negocio?</h2>
+        
+        <div class="internal-box">
+          <div class="internal-box-title">💡 Opinión Estratégica: ¿Cobrar 60 € u 79 € - 80 €?</div>
+          <p style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.6; margin-bottom: 0.75rem;">
+            Cobrar <strong>79 € / mes</strong> (o redondeado a 80 €/mes) es el <strong>precio psicológico perfecto</strong> por tres motivos:
+          </p>
+          <ul style="margin-left: 1.25rem; font-size: 0.825rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.4rem;">
+            <li><strong>Por debajo de la barrera de los 100€:</strong> Para un concesionario que factura coches de 60.000€ a 180.000€, 79€ al mes es una cifra completamente invisible en su cuenta de resultados (menos de 2,60€ al día).</li>
+            <li><strong>Genera 948 €/año de ingreso recurrente limpio:</strong> Como tú no pagas licencias (Sanity es gratis en su capa base y el hosting en Cloudflare/Vercel también), ese dinero entra casi íntegro a tu bolsillo. Con solo 4 o 5 clientes como Marc, tienes casi <strong>400€ - 500€/mes de ingresos pasivos</strong>.</li>
+            <li><strong>Si cobras 40€ o 50€ pareces barato; si cobras 150€ puede dudar:</strong> 79€ transmite que hay un servicio técnico senior detrás pero sin ahogar al cliente.</li>
+          </ul>
+        </div>
+
+        <div class="internal-box" style="border-color: rgba(16, 185, 129, 0.3);">
+          <div class="internal-box-title" style="color: #34d399;">⚙️ Costes Reales para Ti de Mantener la Opción A (95% Margen Neto)</div>
+          <table class="clean-table" style="margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th>Servicio / Herramienta</th>
+                <th>Coste Real para Ti</th>
+                <th>Tiempo Mensual Requerido</th>
+                <th>Margen Neto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sanity.io Backend (API & CDN)</strong></td>
+                <td>0,00 € / mes (Capa Free: 100k requests y 10GB activos)</td>
+                <td>0 minutos (funciona en la nube)</td>
+                <td><span style="color: #34d399; font-weight: 700;">100%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Alojamiento Cloudflare Pages / Vercel</strong></td>
+                <td>0,00 € / mes (Capa Free con SSL y CDN global ilimitada)</td>
+                <td>0 minutos (despliegue automático)</td>
+                <td><span style="color: #34d399; font-weight: 700;">100%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Copias de Seguridad (Backups)</strong></td>
+                <td>0,00 € (Script JSON automático o exportación Sanity)</td>
+                <td>5 minutos al mes</td>
+                <td><span style="color: #34d399; font-weight: 700;">100%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Soporte y Ajustes de Marc (Bolsa 1,5h)</strong></td>
+                <td>Tu tiempo (cambiar un texto o foto puntual)</td>
+                <td>~30 a 60 minutos al mes de media</td>
+                <td><span style="color: #34d399; font-weight: 700;">~90%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="internal-box" style="border-color: rgba(212, 163, 89, 0.35);">
+          <div class="internal-box-title" style="color: var(--gold-light);">🎯 El Secreto para que Marc no Cancele la Mensualidad</div>
+          <p style="font-size: 0.825rem; color: var(--text-secondary); line-height: 1.6;">
+            El mayor peligro de un mantenimiento es que pasen 3 meses sin que el cliente pida nada y piense <em>"¿Para qué pago 79€ si no pido cambios?"</em>.<br />
+            <strong>La solución:</strong> El primer día de cada mes, le mandas un mensaje de WhatsApp ejecutivo:<br />
+            <em style="color: var(--gold-light);">«Hola Marc! Te paso el resumen técnico del mes de Exotics Collections: 0 caídas del servidor, velocidad de carga óptima en iPhone (< 1.1s), backup de seguridad de todo el stock completado con éxito y hemos registrado 38 clics directos al botón de WhatsApp en tus coches. Todo listo para seguir vendiendo a tope este mes! Un saludo!»</em>.<br />
+            Con ese mensaje mensual de 30 segundos, Marc sentirá que 79€ es la mejor inversión de su empresa y renovará año tras año.
+          </p>
+        </div>
+      </section>
+
+      <!-- Signature Developer -->
+      <footer class="signatures-grid" style="border-top-color: rgba(56, 189, 248, 0.2); margin-top: 2rem;">
+        <div class="signature-card">
+          <span class="signature-role" style="color: #38bdf8;">Aprobación Técnica Interna</span>
+          <div class="signature-line">Lead Engineering Arch</div>
+          <span class="signature-name">Dirección de Desarrollo Web</span>
+          <span class="signature-sub">28 horas estimadas a 66€/h · Margen MRR asegurado</span>
+        </div>
+        <div class="signature-card">
+          <span class="signature-role" style="color: #38bdf8;">Objetivo de Negocio</span>
+          <div class="signature-line">1.850 € Setup + 79 €/mes Recurrente</div>
+          <span class="signature-name">Total Anual Estimado: 2.798 € / cliente</span>
+          <span class="signature-sub">Cero costes fijos de servidores</span>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
 
 </body>
 </html>
