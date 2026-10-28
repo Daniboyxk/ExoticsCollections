@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modelos de Mensualidad & Mantenimiento Recurrente | Exotics Collections</title>
+  <meta name="description" content="Análisis estratégico de modelos de cobro mensual (con y sin Sanity CMS) para concesionarios de automoción de lujo: pros, contras, tarifas y argumentarios." />
+  <link rel="icon" type="image/png" href="../assets/logo_exotics.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(13, 17, 25, 0.94);
+      --bg-elevated: #111622;
+      --gold: #d4a359;
+      --gold-light: #f3d49a;
+      --gold-dark: #b8863b;
+      --gold-glow: rgba(212, 163, 89, 0.25);
+      --gold-gradient: linear-gradient(135deg, #f5d79e 0%, #d4a359 50%, #b8863b 100%);
+      --text-white: #ffffff;
+      --text-primary: #f1f4f9;
+      --text-secondary: #9aa5b8;
+      --text-muted: #647087;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(212, 163, 89, 0.35);
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 4rem;
+    }
+
+    .top-actions-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.35rem;
+      border-radius: 9999px;
+      font-family: var(--font-heading);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-print {
+      background: var(--gold-gradient);
+      color: #07090e;
+      box-shadow: 0 4px 18px rgba(212, 163, 89, 0.4);
+    }
+    .btn-print:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .btn-back {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-white);
+      border-color: var(--border-subtle);
+    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--gold); }
+
+    .quote-sheet {
+      max-width: 980px;
+      margin: 2.5rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 3.5rem 3.5rem;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px -15px var(--gold-glow);
+      position: relative;
+    }
+
+    .quote-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      gap: 2rem;
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .brand-logo {
+      height: 42px;
+      width: auto;
+      margin-bottom: 0.35rem;
+    }
+
+    .brand-tagline {
+      font-size: 0.8125rem;
+      color: var(--gold-light);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .doc-meta-card {
+      text-align: right;
+      background: rgba(17, 22, 34, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .doc-title {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+
+    .meta-line {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .meta-line strong { color: var(--text-white); }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-white);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .section-heading::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.25rem;
+      background: var(--gold-gradient);
+      border-radius: 2px;
+    }
+
+    .section-lead {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.65;
+    }
+
+    /* Strategy Callout Banner */
+    .strategy-banner {
+      background: linear-gradient(135deg, rgba(212, 163, 89, 0.12), rgba(17, 22, 34, 0.8));
+      border: 1px solid var(--gold);
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .strategy-icon {
+      font-size: 1.85rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .strategy-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .strategy-desc {
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      line-height: 1.55;
+    }
+
+    /* Model Cards */
+    .model-card {
+      background: rgba(15, 20, 30, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+
+    .model-card:hover {
+      border-color: rgba(212, 163, 89, 0.45);
+    }
+
+    .model-header {
+      background: rgba(20, 26, 40, 0.95);
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .model-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .model-badge {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+    }
+
+    .badge-recommended {
+      background: var(--gold-gradient);
+      color: #07090e;
+    }
+
+    .badge-standard {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-white);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .badge-saas {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .model-name {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .model-fee {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+
+    .model-body {
+      padding: 1.5rem;
+    }
+
+    .model-desc {
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    /* Pros & Cons Columns */
+    .pros-cons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .box-pro, .box-con {
+      padding: 1.15rem;
+      border-radius: 10px;
+      font-size: 0.825rem;
+      line-height: 1.6;
+    }
+
+    .box-pro {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .box-con {
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .box-pro-title {
+      color: #34d399;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .box-con-title {
+      color: #f87171;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pro-list, .con-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .pro-list li::before {
+      content: '✓ ';
+      color: #34d399;
+      font-weight: bold;
+    }
+
+    .con-list li::before {
+      content: '✕ ';
+      color: #f87171;
+      font-weight: bold;
+    }
+
+    /* Comparison Table */
+    .compare-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      margin: 1.75rem 0;
+      background: rgba(11, 15, 23, 0.8);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.825rem;
+    }
+
+    .compare-table th {
+      background: rgba(17, 22, 34, 0.95);
+      color: var(--gold-light);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.72rem;
+      padding: 0.85rem 1.15rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .compare-table td {
+      padding: 0.9rem 1.15rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .compare-table tr.highlight-row {
+      background: rgba(212, 163, 89, 0.09);
+      border-left: 3px solid var(--gold);
+    }
+
+    .compare-table tr.highlight-row td {
+      color: var(--text-white);
+      font-weight: 600;
+    }
+
+    code {
+      font-family: 'SF Mono', Consolas, Monaco, monospace;
+      font-size: 0.75rem;
+      background: rgba(212, 163, 89, 0.12);
+      color: var(--gold-light);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid rgba(212, 163, 89, 0.25);
+    }
+
+    @media print {
+      @page { size: A4; margin: 8mm 10mm; }
+      body { background: #000 !important; color: #f1f4f9 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .top-actions-bar { display: none !important; }
+      .quote-sheet { margin: 0 !important; padding: 1.25rem !important; border: 1px solid #d4a359 !important; box-shadow: none !important; background: #0a0d14 !important; max-width: 100% !important; }
+      .model-card { page-break-inside: avoid; }
+    }
+
+    @media (max-width: 768px) {
+      .quote-sheet { padding: 1.75rem 1.25rem; margin: 1rem; }
+      .quote-header { flex-direction: column; align-items: flex-start; }
+      .doc-meta-card { text-align: left; width: 100%; }
+      .pros-cons-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Toolbar -->
+  <aside class="top-actions-bar" aria-label="Controles de propuesta">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <a href="../index.html" class="btn-action btn-back">← Volver a la Web</a>
+      <span style="font-size: 0.8125rem; color: var(--text-muted);">Estrategia Recurrente · Presupuestos Exotics Collections</span>
+    </div>
+    <button type="button" onclick="window.print()" class="btn-action btn-print">
+      <svg style="width: 1rem; height: 1rem; fill: currentColor;" viewBox="0 0 24 24">
+        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+      </svg>
+      <span>Descargar en PDF / Imprimir</span>
+    </button>
+  </aside>
+
+  <!-- Document Sheet -->
+  <main class="quote-sheet" id="quote-document">
+
+    <!-- Header & Brand -->
+    <header class="quote-header">
+      <div class="brand-group">
+        <img src="../assets/logo_exotics.png" alt="Exotics Collections Logo" class="brand-logo" />
+        <span class="brand-tagline">Bespoke Supercar Sourcing & European Imports</span>
+      </div>
+      <div class="doc-meta-card">
+        <div class="doc-title">Estrategia de Mensualidad</div>
+        <div class="meta-line">Ref: <strong>DOC-2026-MENSUALIDADES</strong></div>
+        <div class="meta-line">Fecha: <strong>28 de Octubre, 2026</strong></div>
+        <div class="meta-line">Objetivo: <strong>Ingresos Recurrentes (MRR) & Pros / Contras</strong></div>
+      </div>
+    </header>
+
+    <!-- Strategy Callout -->
+    <div class="strategy-banner">
+      <div class="strategy-icon">💡</div>
+      <div>
+        <div class="strategy-title">¿Se le puede cobrar una mensualidad a un concesionario? ¡SÍ, al 100%!</div>
+        <div class="strategy-desc">
+          En el sector de la automoción de alta gama, <strong>los concesionarios pagan cuotas mensuales con normalidad</strong>. No pagan por "usar Sanity" (que para ti tiene capa gratuita), sino por <strong>seguridad, soporte prioritario, auditoría de velocidad y el tiempo que tú les ahorras</strong>. A continuación se analizan los 3 modelos posibles, sus pros, sus contras y los precios recomendados.
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. The 3 Models -->
+    <section>
+      <h2 class="section-heading">1. Los 3 Modelos de Cobro Recurrente</h2>
+
+      <!-- Model A -->
+      <article class="model-card">
+        <div class="model-header">
+          <div class="model-badge-wrap">
+            <span class="model-badge badge-recommended">★ Modelo Recomendado</span>
+            <span class="model-name">MODELO 1: Mantenimiento Técnico & Soporte VIP (Con Sanity)</span>
+          </div>
+          <div class="model-fee">95 € – 150 € / mes</div>
+        </div>
+        <div class="model-body">
+          <div class="model-desc">
+            <strong>Cómo funciona:</strong> Marc y su equipo tienen acceso a Sanity Studio para subir o editar coches cuando quieran. Tú les cobras una cuota mensual por encargarte de toda la fontanería técnica que ellos no saben (ni quieren) gestionar: hosting ultra-rápido, copias de seguridad de los coches, auditoría de velocidad en iPhone, monitorización 24/7 y una <strong>bolsa de 2 horas mensuales</strong> para cambios de textos, nuevos banners o ajustes.
+          </div>
+          <div class="pros-cons-grid">
+            <div class="box-pro">
+              <div class="box-pro-title">Pros (Para Ti y Para el Cliente)</div>
+              <ul class="pro-list">
+                <li><strong>Cero coste de herramientas:</strong> Sanity y Cloudflare/Vercel son gratis en su capa base; tu margen de beneficio es del <strong>95% neto</strong>.</li>
+                <li><strong>Fácil de vender:</strong> Se presenta como un "seguro a todo riesgo" para que la web nunca se caiga ni falle en el móvil de un cliente VIP.</li>
+                <li><strong>Poco trabajo mensual:</strong> Si la web está bien hecha (como esta), apenas consume 1-2 horas al mes.</li>
+                <li><strong>El cliente está contento:</strong> No se siente "atado" porque puede subir coches en Sanity si le apetece.</li>
+              </ul>
+            </div>
+            <div class="box-con">
+              <div class="box-con-title">Contras / Riesgos</div>
+              <ul class="con-list">
+                <li>Si Marc pasa 3 meses sin pedir ningún cambio, puede preguntarse qué está pagando.</li>
+                <li><strong>Solución:</strong> Enviarle el día 1 de cada mes un mini-informe por WhatsApp: <em>"Marc, este mes hemos tenido 420 visitas, 0 caídas, backup completado y 18 clics al botón de WhatsApp"</em>. Con eso no cancelará jamás.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Model B -->
+      <article class="model-card">
+        <div class="model-header">
+          <div class="model-badge-wrap">
+            <span class="model-badge badge-standard">Mayor Rentabilidad</span>
+            <span class="model-name">MODELO 2: Servicio "Concierge Digital" / Gestión Completa de Stock (Con Sanity)</span>
+          </div>
+          <div class="model-fee">250 € – 450 € / mes</div>
+        </div>
+        <div class="model-body">
+          <div class="model-desc">
+            <strong>Cómo funciona:</strong> Marc <strong>NO toca Sanity jamás</strong>. A los compraventas de coches les da pereza redactar especificaciones, recortar fotos o buscar los códigos de pintura. En este modelo, Marc simplemente te manda por WhatsApp las fotos del coche recién llegado y los 4 datos clave. Tú retocas las fotos, redactas la ficha con estilo editorial de lujo, la subes a Sanity, insertas el vídeo de YouTube y la dejas perfecta.
+          </div>
+          <div class="pros-cons-grid">
+            <div class="box-pro">
+              <div class="box-pro-title">Pros (Para Ti y Para el Cliente)</div>
+              <ul class="pro-list">
+                <li><strong>Ingreso recurrente muy alto:</strong> Generas entre <strong>3.000 € y 5.400 € al año</strong> de un solo cliente.</li>
+                <li><strong>Valor brutal para Marc:</strong> Le ahorras horas de trabajo tedioso; él solo se dedica a comprar en Alemania y vender en España.</li>
+                <li><strong>La web siempre luce de 10:</strong> Nadie sube fotos torcidas ni textos con faltas de ortografía porque todo pasa por tu mano.</li>
+                <li><strong>Fidelización máxima:</strong> Es casi imposible que te cancele porque eres su "departamento digital".</li>
+              </ul>
+            </div>
+            <div class="box-con">
+              <div class="box-con-title">Contras / Riesgos</div>
+              <ul class="con-list">
+                <li>Requiere disponibilidad: Si le entra un coche un jueves, querrá verlo publicado antes del fin de semana.</li>
+                <li><strong>Solución:</strong> Limitar el contrato a un máximo mensual (ej. <em>"Hasta 6 u 8 vehículos nuevos al mes; unidades extra a 35€/coche"</em>).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Model C -->
+      <article class="model-card">
+        <div class="model-header">
+          <div class="model-badge-wrap">
+            <span class="model-badge badge-saas">Modelo Renting / SaaS</span>
+            <span class="model-name">MODELO 3: Renting Web & Software (Sin Sanity o con CMS Cerrado)</span>
+          </div>
+          <div class="model-fee">150 € – 250 € / mes + Setup bajo (800€)</div>
+        </div>
+        <div class="model-body">
+          <div class="model-desc">
+            <strong>Cómo funciona:</strong> La web no se vende; se <strong>alquila</strong>. El cliente paga un coste de entrada muy bajo para arrancar (ej. 800 € en vez de 1.850 €), pero firma un contrato de permanencia de 12 meses a 180 €/mes. Si deja de pagar, la web se apaga. Tú controlas el servidor y el código, y cualquier modificación pasa obligatoriamente por ti.
+          </div>
+          <div class="pros-cons-grid">
+            <div class="box-pro">
+              <div class="box-pro-title">Pros (Para Ti y Para el Cliente)</div>
+              <ul class="pro-list">
+                <li><strong>Entrada psicológica más fácil:</strong> Para un cliente que no quiere soltar 1.850€ de golpe, 800€ suena a ganga.</li>
+                <li><strong>Ingreso garantizado a 12 meses:</strong> 800€ + (180€ x 12) = <strong>2.960 € el primer año</strong>.</li>
+                <li>Control total sobre la propiedad intelectual del software.</li>
+              </ul>
+            </div>
+            <div class="box-con">
+              <div class="box-con-title">Contras / Riesgos</div>
+              <ul class="con-list">
+                <li><strong>Rechazo en el sector de lujo:</strong> Los clientes con dinero no quieren sentir que "alquilan" su escaparate; quieren que la web sea de su propiedad.</li>
+                <li>Si surge un desacuerdo, el cliente puede enfadarse por el dominio o la propiedad del código.</li>
+                <li>Mucho soporte administrativo para cobrar recibos mes a mes.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 2. Comparative Matrix -->
+    <section style="margin-top: 2rem;">
+      <h2 class="section-heading">2. Matriz Comparativa de Modelos</h2>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Criterio</th>
+              <th>Modelo 1: Mantenimiento VIP (Con Sanity)</th>
+              <th>Modelo 2: Concierge Stock (Con Sanity)</th>
+              <th>Modelo 3: Renting Web (Sin Sanity)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cuota Mensual Típica</strong></td>
+              <td><strong style="color: #34d399;">95 € – 150 € / mes</strong></td>
+              <td><strong style="color: var(--gold-light);">250 € – 450 € / mes</strong></td>
+              <td>150 € – 250 € / mes</td>
+            </tr>
+            <tr>
+              <td><strong>Ingreso Anual Recurrente</strong></td>
+              <td>1.140 € – 1.800 € / año</td>
+              <td><strong style="color: var(--gold-light);">3.000 € – 5.400 € / año</strong></td>
+              <td>1.800 € – 3.000 € / año</td>
+            </tr>
+            <tr>
+              <td><strong>Dedicación de Tiempo</strong></td>
+              <td>Mínima (~1 a 2 horas/mes)</td>
+              <td>Media (~4 a 6 horas/mes)</td>
+              <td>Media (~3 a 5 horas/mes)</td>
+            </tr>
+            <tr>
+              <td><strong>Aceptación por el Cliente</strong></td>
+              <td><span style="color: #34d399; font-weight: 700;">Muy Alta (No se siente atado)</span></td>
+              <td><span style="color: #34d399; font-weight: 700;">Alta (Ve un ahorro de tiempo real)</span></td>
+              <td>Media / Baja (Prefieren comprar)</td>
+            </tr>
+            <tr>
+              <td><strong>Margen de Beneficio</strong></td>
+              <td><strong>~95% neto</strong> (costes casi cero)</td>
+              <td><strong>~85% neto</strong> (cambio de horas por dinero)</td>
+              <td><strong>~80% neto</strong> (gestión de servidores)</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Veredicto Estratégico</strong></td>
+              <td><strong>(Recomendado) Base imprescindible</strong></td>
+              <td><strong>El mejor para subir ticket medio</strong></td>
+              <td>Solo si el cliente no tiene presupuesto</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. What to include in the monthly plan -->
+    <section style="margin-top: 2rem;">
+      <h2 class="section-heading">3. Argumentario de Venta: Qué le dices a Marc para que acepte la cuota</h2>
+      <div style="background: rgba(17, 22, 34, 0.7); border: 1px solid var(--border-gold); border-radius: 12px; padding: 1.5rem; font-size: 0.85rem; line-height: 1.65; color: var(--text-secondary);">
+        <p style="color: var(--text-white); font-weight: 700; margin-bottom: 0.75rem;">
+          Guion exacto para plantearle el mantenimiento a Marc:
+        </p>
+        <p style="font-style: italic; margin-bottom: 1rem; color: var(--gold-light);">
+          «Marc, la web es 100% tuya y tienes tu panel de Sanity para subir o cambiar coches cuando quieras sin pagar nada extra. Ahora bien, para que tú te dediques exclusivamente a viajar a Alemania y cerrar ventas, te propongo un <strong>Plan de Mantenimiento y Rendimiento VIP por 95€/mes</strong>: nosotros nos encargamos de que el servidor vuele en los iPhones de tus clientes, hacemos copias de seguridad semanales de todo el catálogo, y tienes 2 horas al mes para pedirnos cualquier cambio de banner, texto o ajuste sin coste adicional. Si un domingo un comprador te avisa de un fallo, lo tienes resuelto en minutos».
+        </p>
+        <p style="color: #34d399; font-weight: 600;">
+          ✓ Resultado: Por menos de 100€ al mes, Marc siente que tiene un equipo de ingeniería detrás, y tú aseguras 1.140 €/año de ingreso recurrente pasivo por cada cliente.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

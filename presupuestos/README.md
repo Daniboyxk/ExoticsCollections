@@ -10,6 +10,7 @@ Este directorio almacena y numera cronológicamente todas las propuestas comerci
 | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
 | **01** | `PROP-2026-EXOTICS-01` | 28/10/2026 | **4.850,00 €** | 5.868,50 € | [HTML](file:///c:/EXOTICS/presupuestos/01_presupuesto_estudio_mercado_4850.html) · [PDF](file:///c:/EXOTICS/presupuestos/01_presupuesto_estudio_mercado_4850.pdf) | **Propuesta Inicial de Agencia**: Basada en auditoría de mercado con 5 agencias de referencia en Europa (Maison Studios, Hollmann Digital, Estudio Cactus, MotorK, Senior Freelance). |
 | **02** | `PROP-2026-EXOTICS-AJUSTADO` | 28/10/2026 | **1.850,00 €** | **2.238,50 €** | [HTML](file:///c:/EXOTICS/presupuestos/02_presupuesto_ajustado_esencial_1850.html) · [PDF](file:///c:/EXOTICS/presupuestos/02_presupuesto_ajustado_esencial_1850.pdf) | **Propuesta Ajustada Esencial (ACTIVA)**: Tarifa directa de ingeniería (~28h estimadas a ~66€/h). Incluye doble explicación por sección (valor de negocio para el cliente vs trabajo técnico real) y justificación de amortización ROI con 1 sola venta. |
+| **03** | `DOC-2026-MENSUALIDADES` | 28/10/2026 | **95 € a 290 € / mes** | Variable según plan | [HTML](file:///c:/EXOTICS/presupuestos/03_modelos_mensualidad_pros_contras.html) · [PDF](file:///c:/EXOTICS/presupuestos/03_modelos_mensualidad_pros_contras.pdf) | **Estrategia de Mensualidades & Mantenimiento**: Análisis de 3 modelos de cobro recurrente (con Sanity y sin Sanity), pros y contras técnicos, matriz comparativa y guion exacto de venta para Marc. |
 
 ---
 
