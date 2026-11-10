@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060709" />
+    <title>Stock de Vehículos Seleccionados | Exotics Collections</title>
+    <meta
+      name="description"
+      content="«No buscamos cualquier coche. Buscamos la unidad perfecta». Vehículos seleccionados como si fueran para nuestro garaje personal en Barcelona."
+    />
+    <link rel="canonical" href="https://exoticscollections.com/stock" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Exotics" />
+    
+
+    <!-- OpenGraph & Twitter Cards -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Exotics Collections" />
+    <meta property="og:title" content="Stock de Vehículos Seleccionados | Exotics Collections" />
+    <meta
+      property="og:description"
+      content="«No buscamos cualquier coche. Buscamos la unidad perfecta». Garaje propio y entrega inmediata en Barcelona."
+    />
+    <meta property="og:url" content="https://exoticscollections.com/stock.html" />
+    <meta property="og:image" content="https://exoticscollections.com/assets/hero_poster.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <!-- @partial:header active="stock" -->
+
+    <main style="min-height: 85vh;">
+      <section
+        class="editorial-section"
+        style="padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 2.75rem); border-top: none; border-bottom: 0;"
+      >
+        <div class="container">
+          <!-- Editorial Header & Title -->
+          <div class="editorial-heading-group" data-reveal style="margin-bottom: 1.25rem;">
+            <span class="hero-eyebrow" style="margin-bottom: 0.5rem; text-shadow: none;">CATÁLOGO &amp; DISPONIBILIDAD</span>
+            <h1 class="editorial-serif-title">
+              «No buscamos cualquier coche. Buscamos la unidad <em>perfecta</em>».
+            </h1>
+            <p class="editorial-lead">
+              Vendemos unidades que nosotros mismos compraríamos, como si fuera nuestro garaje personal. No priorizamos el margen de beneficio, sino el estado mecánico verificado, el kilometraje contrastado y 12 meses de garantía europea.
+            </p>
+          </div>
+
+          <!-- Mode Switcher & Quick Sourcing CTA -->
+          <div class="catalog-nav-header" data-reveal>
+            <div class="catalog-tab-pill" role="tablist" aria-label="Selector de catálogo">
+              <button
+                type="button"
+                class="catalog-tab-btn active"
+                id="tab-stock"
+                role="tab"
+                aria-selected="true"
+              >
+                <span>Stock Disponible</span>
+                <span class="tab-count" id="count-stock">0</span>
+              </button>
+              <button
+                type="button"
+                class="catalog-tab-btn"
+                id="tab-deliveries"
+                role="tab"
+                aria-selected="false"
+              >
+                <span>Últimas Entregas</span>
+                <span class="tab-count" id="count-deliveries">0</span>
+              </button>
+            </div>
+
+            <div class="catalog-actions-right">
+              <a href="importacion.html#solicitar-busqueda" class="btn-primary">
+                <span>Búsqueda Europea ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Luxury Horizontal Filter Toolbar (Screenshot Benchmark) -->
+          <div class="stock-filter-toolbar" id="stock-filter-toolbar" data-reveal>
+            <div class="stock-filter-pills-row">
+              <!-- Marca Dropdown Pill -->
+              <div class="stock-filter-pill" id="pill-brand">
+                <select id="stock-brand-select" class="stock-filter-native-select" aria-label="Filtrar por Marca">
+                  <option value="all">Marca</option>
+                </select>
+                <span class="stock-filter-pill-label" id="brand-pill-label">Marca</span>
+                <svg class="stock-filter-pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+
+              <!-- Modelo / Búsqueda Input Pill -->
+              <div class="stock-filter-pill stock-filter-pill--search" id="pill-search">
+                <input
+                  type="text"
+                  id="stock-search-input"
+                  class="stock-filter-search-input"
+                  placeholder="Modelo"
+                  aria-label="Buscar por modelo o versión"
+                  autocomplete="off"
+                />
+                <svg class="stock-filter-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+
+              <!-- Precio Dropdown Pill -->
+              <div class="stock-filter-pill" id="pill-price">
+                <select id="stock-price-select" class="stock-filter-native-select" aria-label="Filtrar por Precio">
+                  <option value="all">Precio</option>
+                  <option value="under-10k">Hasta 10.000 €</option>
+                  <option value="10k-20k">10.000 € – 20.000 €</option>
+                  <option value="20k-40k">20.000 € – 40.000 €</option>
+                  <option value="over-40k">Más de 40.000 €</option>
+                </select>
+                <span class="stock-filter-pill-label" id="price-pill-label">Precio</span>
+                <svg class="stock-filter-pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+
+              <!-- Año Dropdown Pill -->
+              <div class="stock-filter-pill" id="pill-year">
+                <select id="stock-year-select" class="stock-filter-native-select" aria-label="Filtrar por Año">
+                  <option value="all">Año</option>
+                  <option value="2020">Desde 2020</option>
+                  <option value="2015">Desde 2015</option>
+                  <option value="2010">Desde 2010</option>
+                  <option value="2005">Desde 2005</option>
+                </select>
+                <span class="stock-filter-pill-label" id="year-pill-label">Año</span>
+                <svg class="stock-filter-pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+
+              <!-- Kilómetros Dropdown Pill -->
+              <div class="stock-filter-pill" id="pill-km">
+                <select id="stock-km-select" class="stock-filter-native-select" aria-label="Filtrar por Kilómetros">
+                  <option value="all">Kilómetros</option>
+                  <option value="under-50k">Hasta 50.000 km</option>
+                  <option value="under-80k">Hasta 80.000 km</option>
+                  <option value="under-100k">Hasta 100.000 km</option>
+                  <option value="under-150k">Hasta 150.000 km</option>
+                </select>
+                <span class="stock-filter-pill-label" id="km-pill-label">Kilómetros</span>
+                <svg class="stock-filter-pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+
+              <!-- Más Filtros Popover Pill (Combustible, Cambio, Etiqueta DGT, Disponibilidad) -->
+              <div class="stock-more-filters-wrap">
+                <button
+                  type="button"
+                  class="stock-filter-pill stock-filter-pill--btn"
+                  id="btn-more-filters"
+                  aria-expanded="false"
+                  aria-controls="more-filters-popover"
+                >
+                  <span id="more-filters-label">Más filtros</span>
+                  <span class="stock-filter-count-badge" id="more-filters-badge" style="display: none;">0</span>
+                  <svg class="stock-filter-pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+
+                <div class="stock-more-popover" id="more-filters-popover" aria-hidden="true">
+                  <div class="stock-more-grid">
+                    <div class="stock-more-group">
+                      <label class="stock-more-label" for="stock-fuel-select">Combustible</label>
+                      <select id="stock-fuel-select" class="stock-more-select">
+                        <option value="all">Todos los combustibles</option>
+                        <option value="Gasolina">Gasolina</option>
+                        <option value="Diésel">Diésel</option>
+                        <option value="Híbrido">Híbrido</option>
+                        <option value="Eléctrico">Eléctrico</option>
+                      </select>
+                    </div>
+
+                    <div class="stock-more-group">
+                      <label class="stock-more-label" for="stock-gear-select">Cambio</label>
+                      <select id="stock-gear-select" class="stock-more-select">
+                        <option value="all">Todos los cambios</option>
+                        <option value="Manual">Manual</option>
+                        <option value="Automático">Automático / DCT</option>
+                      </select>
+                    </div>
+
+                    <div class="stock-more-group">
+                      <label class="stock-more-label" for="stock-badge-select">Etiqueta DGT</label>
+                      <select id="stock-badge-select" class="stock-more-select">
+                        <option value="all">Todas las etiquetas</option>
+                        <option value="Etiqueta C">Etiqueta C</option>
+                        <option value="ECO">Etiqueta ECO</option>
+                        <option value="0 Emisiones">0 Emisiones</option>
+                        <option value="Etiqueta B">Etiqueta B</option>
+                      </select>
+                    </div>
+
+                    <div class="stock-more-group">
+                      <label class="stock-more-label" for="stock-avail-select">Disponibilidad</label>
+                      <select id="stock-avail-select" class="stock-more-select">
+                        <option value="all">Todas las unidades</option>
+                        <option value="disponible">Solo Disponibles</option>
+                        <option value="reservado">Reservados</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="stock-more-footer">
+                    <button type="button" class="btn-more-reset" id="btn-more-reset">Restablecer</button>
+                    <button type="button" class="btn-more-apply" id="btn-more-apply">Aplicar</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Reset Pill (Visible when active filters > 0) -->
+              <button
+                type="button"
+                class="stock-filter-pill stock-filter-pill--reset"
+                id="btn-filter-reset"
+                style="display: none;"
+                title="Limpiar todos los filtros"
+              >
+                <span>Limpiar filtros ✕</span>
+              </button>
+            </div>
+
+            <!-- Toolbar Right: Count + Sort Dropdown -->
+            <div class="stock-filter-toolbar__right">
+              <span class="stock-results-count" id="stock-count-label">8 unidades</span>
+
+              <div class="stock-filter-pill stock-filter-pill--sort" id="pill-sort">
+                <select id="stock-sort-select" class="stock-filter-native-select" aria-label="Ordenar vehículos">
+                  <option value="newest">Más recientes</option>
+                  <option value="price-asc">Precio: menor a mayor</option>
+                  <option value="price-desc">Precio: mayor a menor</option>
+                  <option value="km-asc">Menor kilometraje</option>
+                  <option value="year-desc">Año más moderno</option>
+                </select>
+                <span class="stock-filter-pill-label" id="sort-pill-label">Más recientes</span>
+                <svg class="stock-filter-pill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-Column Luxury Stock Catalog Grid -->
+          <div class="stock-dealer-grid" id="main-bento-grid" aria-live="polite">
+            <div class="skeleton-box" style="height: 340px;" aria-hidden="true"></div>
+            <div class="skeleton-box" style="height: 340px;" aria-hidden="true"></div>
+            <div class="skeleton-box" style="height: 340px;" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- @partial:footer -->
+
+    <script type="module" src="./js/pages/stock.js"></script>
+  </body>
+</html>

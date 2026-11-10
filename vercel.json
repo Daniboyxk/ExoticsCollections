@@ -1,0 +1,44 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/sobre_nosotros",
+      "destination": "/sobre-nosotros",
+      "permanent": true
+    },
+    {
+      "source": "/politica-de-privacidad",
+      "destination": "/legal#privacidad",
+      "permanent": true
+    },
+    {
+      "source": "/terminos-y-condiciones",
+      "destination": "/legal#condiciones",
+      "permanent": true
+    },
+    {
+      "source": "/politica-de-cookies",
+      "destination": "/legal#cookies",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

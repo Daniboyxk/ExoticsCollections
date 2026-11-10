@@ -1,12 +1,26 @@
-# Temporary screenshots and logs
+# Dependencies & Build Output
+node_modules/
+dist/
+
+# Private Internal Commercial Documents (Budgets & Margin Analysis - Local Only)
+_internal/
+presupuestos/
+presupuesto.html
+presupuesto.pdf
+
+# Temporary QA Screenshots, Scratch & Logs
 /*.png
-audits/screenshots/*.png
+audits/screenshots/
 *.log
 scratch/
+.temp*
+.chrome*
 
-# System files
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# OS & Editor Files
 .DS_Store
 Thumbs.db
-
-# Dependencies
-node_modules/

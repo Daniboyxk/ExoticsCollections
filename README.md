@@ -1,86 +1,61 @@
-# Exotics Collections — Luxury Showroom & European Sourcing Platform
+# Exotics Collections — Plataforma Web Oficial (v3.0 Production Ready)
 
-Plataforma digital para la boutique de vehículos seleccionados e importación de altas prestaciones **Exotics Collections** (Barcelona, España), liderada por **Marc Ibáñez**.
+Plataforma web multipágina de alto rendimiento para **Exotics Collections** (Marc Ibáñez · Barcelona), diseñada bajo el sistema visual **Obsidian & Champagne × Mechatronik (90/10)** y conectada en tiempo real con **Sanity CDN** (`bjo8yvrn / production`).
 
 ---
 
-## 🏛️ Arquitectura del Proyecto
-
-El repositorio está organizado bajo una estructura modular de grado empresarial:
+## Arquitectura del Proyecto (`v3.0`)
 
 ```text
-c:\EXOTICS\
-├── .agents/                 # Plugins, subagentes especializados y reglas de diseño de lujo
-│   ├── plugins/exotics-suite/   # Subagentes: luxury-design-auditor, iphone-luxury-auditor, luxury-project-estimator
-│   └── skills/                  # Habilidades autónomas (luxury-aesthetic-auditor, iphone-luxury-auditor, luxury-bento-catalog)
-├── assets/                  # Activos gráficos oficiales (logotipos, avatares de curaduría, fondos HD)
-├── audits/                  # Auditorías de diseño, capturas de control de calidad y reportes de viewport
-│   └── screenshots/             # Capturas de QA en escritorio y móviles (iPhone Safe-Area, Bento, etc.)
-├── css/                     # Sistema de diseño CSS modular
-│   └── main.css                 # Tokens de diseño, tipografía, componentes y layouts responsivos
-├── data/                    # Capa de resiliencia y datos locales
-│   └── sanity_cache.json        # Snapshot de contingencia con vehículos y metadatos de Sanity CMS
-├── js/                      # Lógica de cliente y arquitectura de microservicios
-│   ├── app.js                   # Orquestación de Bento Grids, modales y lógica de catálogo
-│   ├── config.js                # Variables de entorno seguras, endpoints y configuración de WhatsApp
-│   └── sanity-api.js            # Cliente de integración GROQ con reintentos y fallback automático
-├── presupuestos/            # Propuestas comerciales versionadas y estudios de mercado
-│   ├── 01_presupuesto_estudio_mercado_4850.html / .pdf
-│   ├── 02_presupuesto_ajustado_esencial_1850.html / .pdf
-│   ├── 03_modelos_mensualidad_pros_contras.html / .pdf
-│   ├── 04_presupuesto_dos_hojas_cliente_y_desarrollador.html / .pdf
-│   └── README.md                # Índice maestro de propuestas financieras y costes
-├── scripts/                 # Herramientas de sincronización y utilidades de desarrollo
-│   ├── fetch_sanity.js          # Extracción y regeneración de caché de Sanity Studio
-│   ├── download_assets.js       # Descarga y verificación de activos remotos
-│   └── open_site.cmd            # Lanzador rápido de entorno local
-├── index.html               # Landing page principal, Bento Grid de entregas y funnel de captación
-├── stock.html               # Catálogo completo de vehículos en stock con filtros dinámicos
-├── car.html                 # Ficha individual de vehículo, galería HD y llamada a la acción dual
-├── presupuesto.html         # Enlace canónico a la propuesta comercial activa
-├── presupuesto.pdf          # Documento oficial del presupuesto en 2 hojas
-├── server.cjs               # Servidor local Node.js para desarrollo y previsualización segura
-└── package.json             # Manifiesto del proyecto y scripts estandarizados
+c:\EXOTICS
+├── src/                         # Código fuente (HTML, parciales, CSS modular y JS ES Modules)
+│   ├── index.html               # Portada editorial + Hero vídeo + Bento de entregas + YouTube
+│   ├── stock.html               # Catálogo segmentado (Performance / Daily / Entregas / Todo)
+│   ├── car.html                 # Showroom individual + Datenblatt + Dossier + Lightbox 2X
+│   ├── importacion.html         # 5 etapas transparentes + Calculadora IEDMT + Encargo directo
+│   ├── sobre-nosotros.html      # Marc Ibáñez, Fons y Beltrán + Ecosistema digital monocromo
+│   ├── legal.html               # Aviso Legal (LSSI-CE), Privacidad (RGPD) y Condiciones
+│   ├── 404.html                 # Página 404 de conserjería
+│   ├── partials/                # Fuente única de verdad (header.html y footer.html)
+│   ├── css/                     # Sistema de diseño modular (tokens, base, layout, components, pages/*)
+│   └── js/                      # Cliente Sanity CDN live-first + controladores por vista
+├── public/                      # Activos estáticos públicos copiados tal cual a dist/
+│   ├── assets/                  # Logotipo oficial, retrato real de Marc y póster Hero
+│   ├── data/sanity_cache.json   # Respaldo local automático ante caída de red
+│   ├── _headers                 # Cabeceras de seguridad y caché para Cloudflare Pages / Netlify
+│   ├── robots.txt               # Reglas de indexación SEO
+│   └── sitemap.xml              # Mapa XML de URLs canónicas
+├── scripts/                     # Utilidades CLI de mantenimiento e infraestructura
+│   ├── fetch_sanity.cjs         # Sincroniza public/data/sanity_cache.json desde Sanity API
+│   ├── download_assets.cjs      # Regenera activos base en public/assets/
+│   └── create_incremental_budget.cjs # Generador incremental inmutable en _internal/presupuestos/
+├── _internal/                   # 🔒 PRIVADO (ignorado por Git y jamás incluido en dist/)
+│   └── presupuestos/            # Historial inmutable 01..NN (.html + .pdf) y plantilla maestra
+├── dist/                        # Build final minificado y hasheado listo para producción
+├── vercel.json                  # Cabeceras HTTP de seguridad y caché inmutable para Vercel
+├── vite.config.js               # Compilador multipágina + inyector de parciales HTML
+└── package.json                 # Scripts oficiales de desarrollo, build y sincronización
 ```
 
 ---
 
-## 🎨 Sistema de Diseño (Estándar Maison Automotive)
+## Comandos Principales
 
-La identidad visual ha sido alineada con el benchmark estético de **Maison Automotive** ([maisonautomotive.es](https://maisonautomotive.es/)):
-
-* **Tipografía Editorial:**
-  * **Titulares y Display:** `Barlow Semi Condensed` (pesos 600 y 700 en mayúsculas, espaciado arquitectónico).
-  * **Cuerpo y Fichas Técnicas:** `Inter` (pesos 300, 400 y 500, máxima legibilidad suiza).
-* **Paleta de Color (*Titanium Platinum & Monochrome*):**
-  * Fondo Obsidiana Mate: `#0A0A0A` / `#111111`
-  * Biseles Perimetrales: Fino corte láser platino `1px solid rgba(255, 255, 255, 0.16)`
-  * Botón Principal (CTA): Píldora en blanco puro (`#FFFFFF`) con tipografía oscura obsidiana.
-  * Botón Secundario: Vidrio obsidiana con acento esmeralda WhatsApp (`#25D366`).
-* **Optimización Mobile First:**
-  * Viewport blindado para pantallas iPhone (`env(safe-area-inset-bottom)`).
-  * Barra de conversión flotante fija en móviles (`.mobile-car-bar`).
+| Comando | Descripción |
+| :--- | :--- |
+| `npm run dev` | Levanta el servidor de desarrollo Vite en `http://localhost:4000` con recarga en caliente (incluyendo `src/partials/`). |
+| `npm run build` | Compila, inyecta Header/Footer unificados, minifica y versiona CSS/JS en `dist/` listo para publicar. |
+| `npm run preview` | Sirve localmente la carpeta de producción `dist/` en `http://localhost:4000` para verificación previa al despliegue. |
+| `npm run sync:sanity` | Actualiza el respaldo offline `public/data/sanity_cache.json` consultando Sanity API en directo. |
+| `npm run budget:new` | Genera un nuevo presupuesto secuencial (`NN+1`) dentro de `_internal/presupuestos/` sin tocar versiones previas ni exponer archivos en la raíz web. |
 
 ---
 
-## 🚀 Comandos de Desarrollo
+## Despliegue Seguro en Producción (Vercel / Cloudflare Pages)
 
-```bash
-# Iniciar servidor local de desarrollo (Puerto 4000)
-npm start
-# o bien:
-node server.cjs
-
-# Sincronizar catálogo y datos desde Sanity CMS
-npm run sync:sanity
-
-# Descargar activos multimedia oficiales
-npm run sync:assets
-```
-
----
-
-## 🔐 Integración Segura con Sanity CMS
-
-* La API de Sanity opera en modo **lectura pública (read-only)** sin tokens de escritura en el cliente.
-* Si el servicio externo de Sanity experimenta latencia o falta de conexión, la plataforma activa de forma transparente el fallback local en `data/sanity_cache.json`, garantizando un tiempo de actividad (uptime) del 100%.
+1. Conecta el repositorio Git a **Vercel** o **Cloudflare Pages**.
+2. Configuración de compilación:
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+3. Seguridad confidencial garantizada:
+   - La carpeta `_internal/` está excluida en `.gitignore` y fuera del `root` (`src/`) y `publicDir` (`public/`) de Vite, por lo que **nunca** puede filtrarse en `dist/` ni servirse públicamente.

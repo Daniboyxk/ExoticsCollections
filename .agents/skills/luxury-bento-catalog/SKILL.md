@@ -91,4 +91,4 @@ Every vehicle page must feature:
 
 - **Marc Ibáñez**: Founder, lead curator, inspection specialist, YouTuber (`@exoticsbcn`).
 - **Fons**: Master technician & peritaje specialist in Germany/Europe.
-- **Beltrán**: Customer care & client concierge (*"Acompañamiento y atención al cliente para hacer los procesos más fluidos"*).
+- **Álex Beltrán**: Customer care, operations & client concierge (*"Acompañamiento y atención al cliente para hacer los procesos más fluidos"*).

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060709" />
+    <title>Ficha Técnica &amp; Dossier de Unidad | Exotics Collections</title>
+    <meta
+      name="description"
+      content="Ficha técnica verificada, galería de inspección multiángulo y dossier de mantenimiento de unidad certificada en Exotics Collections Barcelona."
+    />
+    
+
+    <!-- OpenGraph & Twitter Cards -->
+    <meta property="og:type" content="product" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Exotics Collections" />
+    <meta property="og:title" content="Ficha Técnica de Unidad | Exotics Collections" />
+    <meta
+      property="og:description"
+      content="Unidad auditada por Marc Ibáñez en Barcelona con garantía europea de 12 meses incluida."
+    />
+    <meta property="og:image" content="https://exoticscollections.com/assets/hero_poster.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./css/main.css" />
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Exotics" />
+  </head>
+  <body class="page-car">
+    <!-- @partial:header active="stock" -->
+
+    <main class="page-offset">
+      <div class="container">
+        <!-- Breadcrumbs -->
+        <nav class="car-breadcrumbs" aria-label="Ruta de navegación">
+          <a href="index.html">INICIO</a>
+          <span aria-hidden="true">/</span>
+          <a href="stock.html">STOCK &amp; ENTREGAS</a>
+          <span aria-hidden="true">/</span>
+          <span class="car-breadcrumbs__current" id="breadcrumb-car">CARGANDO UNIDAD...</span>
+        </nav>
+
+        <!-- Dynamic Showroom Root (Clean Dark Shimmer Skeleton — Zero Fake Price / McLaren FOUC) -->
+        <div id="car-showroom-root" aria-live="polite">
+          <div class="gallery-stage" aria-hidden="true">
+            <div class="skeleton-box" style="height: 460px;"></div>
+            <div class="gallery-thumbs-bento">
+              <div class="skeleton-box"></div>
+              <div class="skeleton-box"></div>
+              <div class="skeleton-box"></div>
+              <div class="skeleton-box"></div>
+            </div>
+          </div>
+          <div class="skeleton-box" style="height: 110px; margin-bottom: 2.5rem;" aria-hidden="true"></div>
+          <div class="car-showroom-grid" aria-hidden="true">
+            <div class="skeleton-box" style="height: 420px;"></div>
+            <div class="skeleton-box" style="height: 360px;"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Fullscreen Inspection Lightbox (with Filmstrip, 2X Zoom & iOS Touch Swipe) -->
+    <div
+      class="lightbox"
+      id="gallery-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Visor de fotografías a pantalla completa"
+    >
+      <div class="lightbox__topbar">
+        <span class="lightbox__counter" id="lightbox-counter">FOTOGRAFÍA 1 / 1</span>
+        <div class="lightbox__controls">
+          <button type="button" class="lightbox__btn" id="lightbox-zoom" aria-label="Alternar zoom">
+            ZOOM 2X
+          </button>
+          <button type="button" class="lightbox__btn" id="lightbox-close" aria-label="Cerrar galería">
+            CERRAR ✕
+          </button>
+        </div>
+      </div>
+
+      <div class="lightbox__stage">
+        <button
+          type="button"
+          class="lightbox__arrow lightbox__arrow--prev"
+          id="lightbox-prev"
+          aria-label="Fotografía anterior"
+        >
+          ‹
+        </button>
+        <img id="lightbox-img" class="lightbox__img" src="" alt="Vista ampliada del vehículo" />
+        <button
+          type="button"
+          class="lightbox__arrow lightbox__arrow--next"
+          id="lightbox-next"
+          aria-label="Fotografía siguiente"
+        >
+          ›
+        </button>
+      </div>
+
+      <div class="lightbox__filmstrip" id="lightbox-filmstrip" aria-label="Miniaturas de la galería"></div>
+    </div>
+
+    <!-- Mobile & Tablet Sticky Bottom Conversion Bar (<= 1023px, Zero Floating-WA Overlap) -->
+    <div class="mobile-car-bar" id="mobile-car-bar">
+      <div class="mobile-car-bar__top">
+        <div>
+          <span class="mobile-car-bar__sub">GARANTÍA 12M · PERITAJE MARC</span>
+          <span class="mobile-car-bar__price" id="mobile-car-price">— €</span>
+        </div>
+        <span class="mobile-car-bar__badge">IVA DEDUCIBLE</span>
+      </div>
+      <div class="mobile-car-bar__actions">
+        <a
+          href="https://wa.me/34697464104"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary"
+          id="mobile-car-wa-btn"
+        >
+          <span>ME INTERESA ↗</span>
+        </a>
+        <a
+          href="https://wa.me/34697464104"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary"
+          id="mobile-car-reserve-btn"
+        >
+          <span>RESERVAR UNIDAD</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- @partial:footer -->
+
+    <script type="module" src="./js/pages/car.js"></script>
+  </body>
+</html>
+

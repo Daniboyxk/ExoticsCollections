@@ -1,0 +1,941 @@
+/* ==========================================================================
+   EDITORIAL STOCK CATALOG SYSTEM (Restored Previous Editorial Bento Design)
+   Zero Green Colors — Obsidian, Platinum & Champagne Gold (#cbb084)
+   ========================================================================== */
+
+.stock-editorial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0 0.15rem 0.85rem;
+  font-family: var(--font-tech);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+}
+
+/* Mode Switcher Tabs (Stock Disponible vs Últimas Entregas) + Right Actions */
+.catalog-nav-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .catalog-nav-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.catalog-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(14, 17, 24, 0.92);
+  padding: 0.32rem;
+  border-radius: 0;
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+.catalog-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 42px;
+  padding: 0.55rem 1.35rem;
+  font-family: var(--font-tech);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.25s var(--ease-out-expo);
+  flex: 1 1 auto;
+}
+
+.catalog-tab-btn:hover {
+  color: var(--platinum-pure);
+}
+
+.catalog-tab-btn.active {
+  background: var(--platinum);
+  color: var(--bg-obsidian);
+  border-color: var(--platinum);
+}
+
+.tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--champagne-light);
+}
+
+.catalog-tab-btn.active .tab-count {
+  background: var(--bg-obsidian);
+  color: var(--champagne-light);
+}
+
+.catalog-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   LUXURY HORIZONTAL FILTER TOOLBAR (Screenshot Benchmark)
+   Obsidian background, champagne accents, native ergonomic selects
+   ========================================================================== */
+.stock-filter-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 1.15rem 0 0.85rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stock-filter-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.stock-filter-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #0f1118;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 0.48rem 0.85rem;
+  min-height: 38px;
+  font-family: var(--font-tech);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #e2e8f0;
+  transition: all 0.25s var(--ease-out-expo);
+  user-select: none;
+}
+
+.stock-filter-pill:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: #151822;
+}
+
+.stock-filter-pill.is-active {
+  border-color: #cbb084;
+  color: #dfc194;
+  background: rgba(203, 176, 132, 0.1);
+  box-shadow: 0 0 12px rgba(203, 176, 132, 0.15);
+}
+
+.stock-filter-native-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.stock-filter-native-select option {
+  background: #0e1017;
+  color: #f1f5f9;
+  padding: 8px;
+}
+
+.stock-filter-pill-label {
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.stock-filter-pill-chevron {
+  width: 12px;
+  height: 12px;
+  stroke: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, stroke 0.25s ease;
+}
+
+.stock-filter-pill.is-active .stock-filter-pill-chevron {
+  stroke: #cbb084;
+}
+
+/* Search / Modelo Pill */
+.stock-filter-pill--search {
+  padding: 0 0.8rem;
+  background: #0f1118;
+}
+
+.stock-filter-search-input {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: var(--font-tech);
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.48rem 0;
+  width: 82px;
+  outline: none;
+  transition: width 0.3s var(--ease-out-expo);
+}
+
+.stock-filter-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.stock-filter-search-input:focus {
+  width: 110px;
+}
+
+.stock-filter-search-icon {
+  width: 13px;
+  height: 13px;
+  stroke: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+}
+
+.stock-filter-pill--search.is-active {
+  border-color: #cbb084;
+  background: rgba(203, 176, 132, 0.1);
+}
+
+.stock-filter-pill--search.is-active .stock-filter-search-icon {
+  stroke: #cbb084;
+}
+
+/* Button Pill (for Más filtros) */
+.stock-filter-pill--btn {
+  cursor: pointer;
+}
+
+.stock-more-filters-wrap {
+  position: relative;
+}
+
+.stock-filter-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #cbb084;
+  color: #060709;
+  font-size: 0.65rem;
+  font-weight: 800;
+  border-radius: 999px;
+  margin-left: -0.1rem;
+}
+
+/* Más filtros Floating Popover */
+.stock-more-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 340px;
+  max-width: 90vw;
+  background: #0c0e14;
+  border: 1px solid rgba(203, 176, 132, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+  border-radius: 4px;
+  padding: 1.25rem;
+  z-index: 50;
+  display: none;
+  animation: filterFadeIn 0.22s var(--ease-out-expo);
+}
+
+.stock-more-popover.is-open {
+  display: block;
+}
+
+.stock-more-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.stock-more-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stock-more-label {
+  font-family: var(--font-tech);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #cbb084;
+}
+
+.stock-more-select {
+  background: #141722;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-tech);
+  font-size: 0.78rem;
+  border-radius: 3px;
+  outline: none;
+}
+
+.stock-more-select:focus {
+  border-color: #cbb084;
+}
+
+.stock-more-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-more-reset {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.65);
+  font-family: var(--font-tech);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.42rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-more-reset:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.btn-more-apply {
+  background: #cbb084;
+  border: 1px solid #cbb084;
+  color: #060709;
+  font-family: var(--font-tech);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.42rem 1.1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-more-apply:hover {
+  background: #f5ecd8;
+  border-color: #f5ecd8;
+}
+
+/* Reset Pill */
+.stock-filter-pill--reset {
+  background: rgba(245, 101, 101, 0.1);
+  border-color: rgba(245, 101, 101, 0.35);
+  color: #fca5a5;
+  cursor: pointer;
+}
+
+.stock-filter-pill--reset:hover {
+  background: rgba(245, 101, 101, 0.2);
+  border-color: #f87171;
+  color: #fee2e2;
+}
+
+/* Toolbar Right: Count + Sort */
+.stock-filter-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: auto;
+}
+
+.stock-results-count {
+  font-family: var(--font-tech);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(242, 237, 230, 0.65);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.stock-filter-pill--sort {
+  background: #0f1118;
+}
+
+/* ==========================================================================
+   UNIFORM 3-COLUMN LUXURY STOCK DEALER GRID & CARDS (Screenshot Benchmark)
+   Obsidian background, fine gold glow on hover/active, serif titles & specs
+   ========================================================================== */
+.stock-dealer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.stock-dealer-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #090a0d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #ffffff;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stock-dealer-card:hover,
+.stock-dealer-card--featured {
+  border-color: rgba(203, 176, 132, 0.55);
+  box-shadow: 0 0 24px -2px rgba(203, 176, 132, 0.24), 0 16px 36px rgba(0, 0, 0, 0.75);
+  transform: translateY(-3px);
+}
+
+.stock-dealer-card__media {
+  position: relative;
+  width: 100%;
+  height: 235px;
+  background: #050608;
+  overflow: hidden;
+}
+
+.stock-dealer-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 56%;
+  display: block;
+  transition: transform 0.65s var(--ease-out-expo);
+}
+
+.stock-dealer-card:hover .stock-dealer-card__img {
+  transform: scale(1.04);
+}
+
+/* Floating Status Badges (Reservado, Entregado) */
+.stock-dealer-card__badge-wrap {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.stock-dealer-card__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.65rem;
+  background: rgba(10, 11, 14, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-tech);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-radius: 2px;
+}
+
+.stock-dealer-badge--reserved {
+  border-color: rgba(203, 176, 132, 0.5);
+  color: #dfc194;
+}
+
+.stock-dealer-badge--delivered {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #cbd5e1;
+}
+
+/* Card Body */
+.stock-dealer-card__body {
+  padding: 1.15rem 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  background: #090a0d;
+}
+
+.stock-dealer-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.85rem;
+  min-height: 2.7rem;
+}
+
+.stock-dealer-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stock-dealer-card__price-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.stock-dealer-card__price {
+  font-family: var(--font-tech);
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stock-dealer-card__arrow {
+  color: #cbb084;
+  font-size: 1.15rem;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.stock-dealer-card:hover .stock-dealer-card__arrow {
+  transform: translateX(4px);
+  color: #f5ecd8;
+}
+
+/* Card Specs: Year · Km · Gearbox · Fuel · DGT (Clean Mixed-Case) */
+.stock-dealer-card__specs {
+  font-family: var(--font-tech);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  color: rgba(242, 237, 230, 0.75);
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.stock-dealer-card__specs .spec-dot {
+  color: rgba(203, 176, 132, 0.65);
+  font-weight: 700;
+}
+
+/* Responsive Grid & Filters */
+@media (max-width: 1024px) {
+  .stock-dealer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .editorial-section[style] {
+    padding-top: calc(var(--header-h) + 0.85rem) !important;
+    padding-bottom: 2rem !important;
+  }
+  .stock-editorial-header {
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.35rem;
+    font-size: 0.72rem;
+  }
+  .editorial-heading-group {
+    margin-bottom: 0.75rem;
+  }
+  .editorial-heading-group .editorial-serif-title {
+    font-size: clamp(1.65rem, 5.5vw, 2.1rem);
+    line-height: 1.12;
+    margin-bottom: 0.35rem;
+  }
+  .editorial-heading-group .editorial-lead {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .catalog-nav-header {
+    margin-bottom: 0.85rem;
+    gap: 0.5rem;
+  }
+  .catalog-tab-pill {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.2rem;
+  }
+  .catalog-tab-btn {
+    min-height: 44px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.74rem;
+    gap: 0.35rem;
+    width: 100%;
+  }
+  .catalog-actions-right {
+    display: none;
+  }
+  .stock-dealer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 0.75rem;
+  }
+  .stock-filter-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.65rem;
+    width: 100%;
+    overflow: hidden;
+  }
+  .stock-filter-pills-row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .stock-filter-pills-row::-webkit-scrollbar {
+    display: none;
+  }
+  .stock-filter-pill {
+    flex-shrink: 0;
+    min-height: 42px;
+    padding: 0.52rem 0.95rem;
+    font-size: 0.78rem;
+  }
+  .stock-filter-count {
+    font-family: var(--font-tech);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .stock-filter-toolbar__right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
+  .stock-dealer-card__media {
+    height: 220px;
+  }
+}
+
+.editorial-card {
+  position: relative;
+  overflow: hidden;
+  background: #0a0b0e;
+  border-radius: 0;
+  display: block;
+  text-decoration: none;
+  color: var(--platinum-pure);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.4s var(--ease-out-expo), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.editorial-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(203, 176, 132, 0.42);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.72);
+}
+
+.editorial-card--stock {
+  height: 295px;
+}
+
+.editorial-card--featured {
+  grid-column: span 2;
+  height: 380px;
+}
+
+/* Match row-1 partner card height on 3-column desktop so row 1 is pixel-flush */
+@media (min-width: 1025px) {
+  .editorial-card--featured + .editorial-card--stock {
+    height: 380px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .editorial-catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .editorial-card--featured {
+    grid-column: span 2;
+    height: 330px;
+  }
+}
+
+@media (max-width: 768px) {
+  .editorial-catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .editorial-card--stock,
+  .editorial-card--featured {
+    grid-column: span 1;
+    height: 255px;
+  }
+}
+
+.editorial-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 56%;
+  display: block;
+  filter: contrast(1.02) saturate(1.02);
+  transition: transform 0.75s var(--ease-out-expo);
+}
+
+.editorial-card:hover .editorial-card__img {
+  transform: scale(1.035);
+}
+
+.editorial-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 7, 9, 0.88) 0%,
+    rgba(6, 7, 9, 0.45) 22%,
+    rgba(6, 7, 9, 0.08) 40%,
+    transparent 55%
+  );
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.editorial-card__top-badges {
+  position: absolute;
+  top: 1rem;
+  left: 1.15rem;
+  right: 1.15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.editorial-stock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.34rem 0.8rem;
+  border-radius: 0;
+  font-family: var(--font-tech);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Champagne Gold instead of green */
+.editorial-stock-pill--avail {
+  background: rgba(10, 11, 14, 0.88);
+  border: 1px solid rgba(203, 176, 132, 0.48);
+  color: #dfc69c;
+}
+
+.editorial-stock-pill--reserved {
+  background: rgba(10, 11, 14, 0.88);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+}
+
+.editorial-stock-pill--delivered {
+  background: rgba(10, 11, 14, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #f1f5f9;
+}
+
+.editorial-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.editorial-dgt-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.65rem;
+  font-family: var(--font-tech);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(6, 7, 9, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--platinum-pure);
+  border-radius: 0;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.editorial-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.85rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.editorial-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.editorial-card__title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.55vw, 1.5rem);
+  color: #ffffff;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.editorial-card--featured .editorial-card__title {
+  font-size: clamp(1.65rem, 2.3vw, 2.25rem);
+}
+
+.editorial-card__year {
+  font-family: var(--font-tech);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.35;
+}
+
+.editorial-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.editorial-card__price {
+  font-family: var(--font-tech);
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--platinum-pure);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.editorial-card--featured .editorial-card__price {
+  font-size: 1.5rem;
+}
+
+.editorial-card__tag {
+  font-family: var(--font-tech);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.editorial-card:hover .editorial-card__tag {
+  color: var(--champagne-light);
+}
+
+/* Empty State Concierge Box */
+.catalog-empty {
+  grid-column: 1 / -1;
+  padding: clamp(3rem, 6vw, 4.5rem) 1.75rem;
+  text-align: center;
+  background: #0a0b0e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.catalog-empty__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
+  color: var(--platinum-pure);
+  margin: 0.85rem 0 0.65rem;
+}
+
+.catalog-empty__desc {
+  max-width: 58ch;
+  margin: 0 auto 1.75rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}

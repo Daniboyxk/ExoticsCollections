@@ -1,0 +1,231 @@
+/* ==========================================================================
+   BASE RESET, TYPOGRAPHY, TABULAR NUMERALS & WEBKIT ERGONOMICS
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Luxury Inertial Smooth Scroll (Lenis) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body.has-drawer-open,
+body.has-modal-open {
+  overflow: hidden;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+}
+
+/* Editorial Accent: Champagne Gold (#cbb084), Roman serif/sans, strictly NO italics */
+em {
+  font-style: normal;
+  color: #cbb084;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Prevent iOS Safari WebKit automatic zoom on focus (requires >= 16px on touch devices) */
+@media (max-width: 960px), (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+:focus-visible {
+  outline: 1px solid var(--champagne);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.page-offset {
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+}
+
+/* Scroll Progress Champagne Hairline */
+.scroll-hairline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--champagne), var(--platinum-pure));
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 2200;
+  pointer-events: none;
+}
+
+/* Silky Scroll-Synchronized Reveal Animations */
+[data-reveal].reveal-ready {
+  opacity: 0;
+  transform: translateY(22px);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transition: opacity 0.75s var(--ease-out-expo), transform 0.75s var(--ease-out-expo);
+}
+
+[data-reveal].reveal-ready.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered cascades for grid children when scrolling into view */
+.bento-editorial-grid [data-reveal]:nth-child(1),
+.editorial-process-grid [data-reveal]:nth-child(1),
+.stock-editorial-grid [data-reveal]:nth-child(1) {
+  transition-delay: 0.04s;
+}
+.bento-editorial-grid [data-reveal]:nth-child(2),
+.editorial-process-grid [data-reveal]:nth-child(2),
+.stock-editorial-grid [data-reveal]:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.bento-editorial-grid [data-reveal]:nth-child(3),
+.editorial-process-grid [data-reveal]:nth-child(3),
+.stock-editorial-grid [data-reveal]:nth-child(3) {
+  transition-delay: 0.20s;
+}
+.bento-editorial-grid [data-reveal]:nth-child(4),
+.editorial-process-grid [data-reveal]:nth-child(4),
+.stock-editorial-grid [data-reveal]:nth-child(4) {
+  transition-delay: 0.28s;
+}
+.bento-editorial-grid [data-reveal]:nth-child(5),
+.editorial-process-grid [data-reveal]:nth-child(5),
+.stock-editorial-grid [data-reveal]:nth-child(5) {
+  transition-delay: 0.36s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal].reveal-ready {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Dark Luxury Shimmer Skeletons (Zero FOUC) */
+@keyframes exoticsShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-box {
+  background: linear-gradient(
+    90deg,
+    var(--bg-graphite) 25%,
+    rgba(255, 255, 255, 0.05) 50%,
+    var(--bg-graphite) 75%
+  );
+  background-size: 200% 100%;
+  animation: exoticsShimmer 1.6s infinite linear;
+  border: 1px solid var(--border-subtle);
+}
+
+/* iOS Safari WebKit Anti-Autozoom on Mobile */
+@media (max-width: 1024px), (pointer: coarse) {
+  input,
+  select,
+  textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+  }
+}
+

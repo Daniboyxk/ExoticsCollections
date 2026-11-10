@@ -1,22 +1,30 @@
 {
   "name": "exotics-collections",
-  "version": "2.0.0",
-  "description": "Plataforma de alta gama para importación y showroom de vehículos seleccionados en Barcelona",
-  "main": "server.cjs",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Plataforma web de producción para Exotics Collections — Vehículos seleccionados e importación europea llave en mano (Barcelona)",
   "scripts": {
-    "start": "node server.cjs",
-    "dev": "node server.cjs",
-    "sync:sanity": "node scripts/fetch_sanity.js",
-    "sync:assets": "node scripts/download_assets.js"
+    "dev": "vite --port 4000",
+    "build": "vite build",
+    "preview": "vite preview --port 4000",
+    "sync:sanity": "node scripts/fetch_sanity.cjs",
+    "sync:assets": "node scripts/download_assets.cjs",
+    "budget:new": "node scripts/create_incremental_budget.cjs"
   },
   "keywords": [
     "supercars",
-    "luxury-cars",
+    "luxury-automotive",
     "sanity-cms",
     "european-import",
-    "automotive-design"
+    "mechatronik-aesthetic"
   ],
   "author": "Exotics Collections",
   "license": "UNLICENSED",
-  "private": true
+  "devDependencies": {
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "lenis": "^1.3.27"
+  }
 }
